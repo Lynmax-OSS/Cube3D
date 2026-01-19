@@ -1,5 +1,10 @@
 #ifndef PARSER_H
 # define PARSER_H
+#include "../libft/libft.h"
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
 
 typedef	struct	s_texture
 {
@@ -43,6 +48,17 @@ typedef struct s_scene
 }	t_scene;
 
 
-int extension_check(char *filepath);
+void		parse_file(char *path, t_scene *scene);
+void		parse_color(char *line, t_scene *scene);
+void		parse_texture(char *line, t_scene *scene);
+void		parse_map(int fd, char *first, t_scene *scene);
+char		*skip_spaces(char *s);
+void		error_exit(char *msg);
+int			is_empty_line(char *line);
+int			is_map_line(char *line);
+void		free_split(char **s);
+void		validate_scene(t_scene *scene);
+void		validate_map(t_scene *scene);
+void		print_map(t_scene *s);
 
 #endif
