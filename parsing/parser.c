@@ -77,17 +77,17 @@ void	parse_file(char *path, t_scene *scene)
 		error_exit("Cannot open file");
 	while ((line = get_next_line(fd)))
 	{
-		trimmed = skip_spaces(line);
-		ft_printf("%s", trimmed);
+		trimmed = ft_strtrim(line, "\r\n \t");
+		// ft_printf("%s\n", trimmed);
 		if (is_empty_line(trimmed))
 		{
-			ft_printf("is empty");
+			// ft_printf("is empty\n");
 			free(line);
 			continue ;
 		}
 		if (is_map_line(trimmed))
 		{
-			ft_printf("saved map");
+			// ft_printf("saved map\n");
 			parse_map(fd, line, scene);
 			break ;
 		}

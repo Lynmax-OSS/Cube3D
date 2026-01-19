@@ -22,11 +22,14 @@ static void	add_line(t_mline **lst, char *line)
 {
 	t_mline	*new;
 	t_mline	*tmp;
+	char *trim;
 
 	new = malloc(sizeof(t_mline));
 	if (!new)
 		error_exit("Malloc failed");
-	new->line = line;
+	trim = ft_strtrim(line, "\r");
+	new->line = trim;
+	// ft_printf("%s", new->line);
 	new->next = NULL;
 	if (!*lst)
 	{
@@ -70,7 +73,7 @@ static void	copy_map(t_scene *scene, t_mline *lst)
 	y = 0;
 	while (lst)
 	{
-		scene->map.grid[y] = ft_strdup(lst->line);
+		scene->map.grid[y] = ft_strtrim(lst->line, "\r\n\t ");
 		if (!scene->map.grid[y])
 			error_exit("Malloc failed");
 		x = 0;
@@ -78,7 +81,7 @@ static void	copy_map(t_scene *scene, t_mline *lst)
 		{
 			if (ft_strchr("NSEW", scene->map.grid[y][x]))
 				check_player(scene, scene->map.grid[y][x], x, y);
-			else if (!ft_strchr("01 ", scene->map.grid[y][x]))
+			else if (!ft_strchr("01", scene->map.grid[y][x]))
 				error_exit("Invalid map character");
 			x++;
 		}

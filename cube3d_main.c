@@ -44,7 +44,7 @@ void	print_map(t_scene *s)
 	i = 0;
 	while (s->map.grid[i])
 	{
-		printf("%s", s->map.grid[i]);
+		printf("%s\n", s->map.grid[i]);
 		i++;
 	}
 }
