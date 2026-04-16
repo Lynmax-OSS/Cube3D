@@ -84,6 +84,12 @@ void	set_key_bool(t_data *info)
 	info->key_r_left = false;
 }
 
+void	set_ray_variables(t_ray *ray)
+{
+	ray->raydirX = 0;
+	ray->raydirY = 0;
+}
+
 void	init_info(t_scene *scene, t_data *info)
 {
 	info->TILE = 20;
@@ -107,6 +113,9 @@ void	init_info(t_scene *scene, t_data *info)
 	set_key_bool(info);
 	info->acum_time = 0.0;
 	info->frames = 0;
+	info->planeX = 0;
+	info->planeY = 0.66;
+	set_ray_variables(&info->ray);
 }
 
 int	main(int argc, char **argv)

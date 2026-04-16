@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 16:53:50 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/14 19:06:37 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/16 18:39:32 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	game_loop(void *param)
 	info = (t_data *)param;
 	apply_movement(info);
 	render(info);
+	
 	return (0);
 }
 

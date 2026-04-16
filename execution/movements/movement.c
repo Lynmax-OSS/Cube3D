@@ -6,56 +6,108 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 16:03:36 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/14 19:08:15 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/16 16:45:01 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+void	compute_buffer(double *buffer, double step)
+{
+	if (step > 0)
+		*buffer = +WALL_COLL;
+	if (step < 0)
+		*buffer = -WALL_COLL;
+	if (step == 0)
+		*buffer = 0;
+}
+
 void	strafe_left(char **map, double *x, double *y, t_data *info)
 {
-	double	moveX;
-	double	moveY;
 	int		new_Y;
 	int		new_X;
+	double	bufferY;
+	double	bufferX;
 
-	moveY = -info->map->player.dirX * info->movespeed;
-	moveX = info->map->player.dirY * info->movespeed;
-	new_Y = (int)(*y + moveY);
-	new_X = (int)*x;
-	if(new_Y >= 0 && new_Y < info->map->map.height
-		&& new_X >= 0 && new_X < (int)ft_strlen(map[new_Y])
-		&& map[(int)(*y + moveY)][(int)*x] != '1')
-		*y += moveY;
-	new_Y = (int)*y;
-	new_X = (int)(*x + moveX);
-	if(new_Y >= 0 && new_Y < info->map->map.height
-		&& new_X >= 0 && new_X < (int)ft_strlen(map[new_Y])
-		&& map[(int)*y][(int)(*x + moveX)] != '1')
-		*x += moveX;
+	compute_buffer(&bufferY, (-info->map->player.dirX * info->movespeed));
+	new_Y = (int)(*y + (-info->map->player.dirX * info->movespeed) + bufferY);
+	if (new_Y >= 0 && new_Y < info->map->map.height
+		&& (int)*x >= 0 && (int)*x < (int)ft_strlen(map[new_Y])
+		&& map[new_Y][(int)*x] != '1')
+		*y += -info->map->player.dirX * info->movespeed;
+	compute_buffer(&bufferX, info->map->player.dirY * info->movespeed);
+	new_X = (int)(*x + info->map->player.dirY * info->movespeed + bufferX);
+	if ((int)*y >= 0 && (int)*y < info->map->map.height
+		&& new_X >= 0 && new_X < (int)ft_strlen(map[(int)*y])
+		&& map[(int)*y][new_X] != '1')
+		*x += info->map->player.dirY * info->movespeed;
 }
 
 void	strafe_right(char **map, double *x, double *y, t_data *info)
 {
-	double	moveX;
-	double	moveY;
 	int		new_Y;
 	int		new_X;
+	double	bufferY;
+	double	bufferX;
 
-	moveY = info->map->player.dirX * info->movespeed;
-	moveX = -info->map->player.dirY * info->movespeed;
-	new_Y = (int)(*y + moveY);
-	new_X = (int)*x;
-	if(new_Y >= 0 && new_Y < info->map->map.height
-		&& new_X >= 0 && new_X < (int)ft_strlen(map[new_Y])
-		&& map[(int)(*y + moveY)][(int)*x] != '1')
-		*y += moveY;
-	new_Y = (int)*y;
-	new_X = (int)(*x + moveX);
-	if(new_Y >= 0 && new_Y < info->map->map.height
-		&& new_X >= 0 && new_X < (int)ft_strlen(map[new_Y])
-		&& map[(int)*y][(int)(*x + moveX)] != '1')
-		*x += moveX;
+	compute_buffer(&bufferY, info->map->player.dirX * info->movespeed);
+	new_Y = (int)(*y + info->map->player.dirX * info->movespeed + bufferY);
+	if (new_Y >= 0 && new_Y < info->map->map.height
+		&& (int)*x >= 0 && (int)*x < (int)ft_strlen(map[new_Y])
+		&& map[new_Y][(int)*x] != '1')
+		*y += info->map->player.dirX * info->movespeed;
+	compute_buffer(&bufferX, (-info->map->player.dirY * info->movespeed));
+	new_X = (int)(*x + (-info->map->player.dirY * info->movespeed) + bufferX);
+	if((int)*y >= 0 && (int)*y < info->map->map.height
+		&& new_X >= 0 && new_X < (int)ft_strlen(map[(int)*y])
+		&& map[(int)*y][new_X] != '1')
+		*x += -info->map->player.dirY * info->movespeed;
+}
+
+//How does the player move ? Does it move in by changing the signature of the player on the grid map ? 
+//Or are we gonna find the direction of the player facing, calculate the distance moved by movespeed * direction to get the coordinate of the player destination ?
+
+void	move_forward(char **map, double *x, double *y, t_data *info)
+{
+	int		new_Y;
+	int		new_X;
+	double	bufferX;
+	double	bufferY;
+
+
+	compute_buffer(&bufferY, info->map->player.dirY * info->movespeed);
+	new_Y = (int)(*y + info->map->player.dirY * info->movespeed + bufferY);
+	if (new_Y >= 0 && new_Y < info->map->map.height
+		&& (int)*x >= 0 && (int)*x < (int)ft_strlen(map[new_Y])
+		&& map[new_Y][(int)*x] != '1')
+		*y += info->map->player.dirY * info->movespeed;
+	compute_buffer(&bufferX, info->map->player.dirX * info->movespeed);
+	new_X = (int)(*x + info->map->player.dirX * info->movespeed + bufferX);
+	if ((int)*y >= 0 && (int)*y < info->map->map.height
+		&& new_X >= 0 && new_X < (int)ft_strlen(map[(int)*y])
+		&& map[(int)*y][new_X] != '1')
+		*x += info->map->player.dirX * info->movespeed;
+}
+
+void	move_backward(char **map, double *x, double *y, t_data *info)
+{
+	int	new_Y;
+	int	new_X;
+	double	bufferX;
+	double	bufferY;
+
+	compute_buffer(&bufferY, info->map->player.dirY * info->movespeed);
+	new_Y = (int)(*y - info->map->player.dirY * info->movespeed - bufferY);
+	if (new_Y >= 0 && new_Y < info->map->map.height
+		&& (int)*x >= 0 && (int)*x < (int)ft_strlen(map[new_Y])
+		&& map[new_Y][(int)*x] != '1')
+		*y -= info->map->player.dirY * info->movespeed;
+	compute_buffer(&bufferX, info->map->player.dirX * info->movespeed);
+	new_X = (int)(*x - info->map->player.dirX * info->movespeed - bufferX);
+	if ((int)*y >= 0 && (int)*y < info->map->map.height
+		&& new_X >= 0 && new_X < (int)ft_strlen(map[(int)*y])
+		&& map[(int)*y][new_X] != '1')
+		*x -= info->map->player.dirX * info->movespeed;
 }
 
 char    **init_movement(char **map, double *x, double *y, t_data *info)
@@ -66,47 +118,6 @@ char    **init_movement(char **map, double *x, double *y, t_data *info)
     *x = info->map->player.x;
     *y = info->map->player.y;
     return (map);
-}
-
-//How does the player move ? Does it move in by changing the signature of the player on the grid map ? 
-//Or are we gonna find the direction of the player facing, calculate the distance moved by movespeed * direction to get the coordinate of the player destination ?
-
-void	move_forward(char **map, double *x, double *y, t_data *info)
-{
-	int	new_Y;
-	int	new_X;
-
-	new_Y = (int)(*y + info->map->player.dirY * info->movespeed);
-	new_X = (int)*x;
-	if (new_Y >= 0 && new_Y < info->map->map.height
-		&& new_X >= 0 && new_X < (int)ft_strlen(map[new_Y])
-		&& map[new_Y][new_X] != '1')
-		*y += info->map->player.dirY * info->movespeed;
-	new_Y = (int)*y;
-	new_X = (int)(*x + info->map->player.dirX * info->movespeed);
-	if (new_Y >= 0 && new_Y < info->map->map.height
-		&& new_X >= 0 && new_X < (int)ft_strlen(map[new_Y])
-		&& map[new_Y][new_X] != '1')
-		*x += info->map->player.dirX * info->movespeed;
-}
-
-void	move_backward(char **map, double *x, double *y, t_data *info)
-{
-	int	new_Y;
-	int	new_X;
-
-	new_Y = (int)(*y - info->map->player.dirY * info->movespeed);
-	new_X = (int)*x;
-	if (new_Y >= 0 && new_Y < info->map->map.height
-		&& new_X >= 0 && new_X < (int)ft_strlen(map[new_Y])
-		&& map[new_Y][new_X] != '1')
-		*y -= info->map->player.dirY * info->movespeed;
-	new_Y = (int)*y;
-	new_X = (int)(*x - info->map->player.dirX * info->movespeed);
-	if (new_Y >= 0 && new_Y < info->map->map.height
-		&& new_X >= 0 && new_X < (int)ft_strlen(map[new_Y])
-		&& map[new_Y][new_X] != '1')
-		*x -= info->map->player.dirX * info->movespeed;
 }
 
 int	apply_movement(void *param)

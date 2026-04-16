@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:32:25 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/14 19:06:01 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/16 18:53:55 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 #define RIGHT XK_d
 #define A_LEFT XK_Left
 #define A_RIGHT XK_Right
+#define WALL_COLL 0.2
 
 typedef struct s_img
 {
@@ -42,6 +43,12 @@ typedef struct s_img
 	int		endian;
 	char	*data;
 } t_img;
+
+typedef struct s_ray
+{
+	double	raydirX;
+	double	raydirY;
+} t_ray;
 
 typedef struct s_data
 {
@@ -66,6 +73,9 @@ typedef struct s_data
 	bool		key_r_left;
 	int			frames;
 	double		acum_time;
+	double		planeX;
+	double		planeY;
+	t_ray		*ray;
 } t_data;
 
 void	get_img_buffer(void *img, t_data *info);
