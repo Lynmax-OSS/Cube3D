@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:32:25 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/16 18:53:55 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/17 23:31:36 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ typedef struct s_ray
 {
 	double	raydirX;
 	double	raydirY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	sideDistX;
+	double	sideDistY;
+	int		stepX;
+	int		stepY;
 } t_ray;
 
 typedef struct s_data
@@ -63,8 +69,6 @@ typedef struct s_data
 	int			TILE;
 	int			final_x;
 	int			final_y;
-	double		planeX;
-	double		planeY;
 	bool		key_fwd;
 	bool		key_bwd;
 	bool		key_right;

@@ -107,15 +107,14 @@ void	init_info(t_scene *scene, t_data *info)
 	info->image->data = NULL;
 	info->mlx_ptr = mlx_init();
 	info->win = mlx_new_window(info->mlx_ptr, 1280, 720, "Cub3d");
-	info->planeX = 0;
-	info->planeY = 0.66;
 	set_py_direction(&(info->map->player));
 	set_key_bool(info);
 	info->acum_time = 0.0;
 	info->frames = 0;
 	info->planeX = 0;
 	info->planeY = 0.66;
-	set_ray_variables(&info->ray);
+	info->ray = malloc(sizeof(t_ray));
+	set_ray_variables(info->ray);
 }
 
 int	main(int argc, char **argv)
