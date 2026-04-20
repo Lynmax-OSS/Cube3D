@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 16:09:46 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/14 14:06:24 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/20 17:20:10 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	get_img_buffer(void *img, t_data *info)
 {
 	info->image->data = mlx_get_data_addr(img, &info->image->bpp, 
 		&info->image->line_len, &info->image->endian);
+	raydirection(info->ray, info);
 	img_buffer(info);
 	set_py_in_buffer(info);
 }

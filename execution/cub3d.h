@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:32:25 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/17 23:31:36 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/20 17:00:10 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_ray
 	double	sideDistY;
 	int		stepX;
 	int		stepY;
+	int		side;
 } t_ray;
 
 typedef struct s_data
@@ -94,5 +95,6 @@ void    set_py_in_buffer(t_data *info);
 void    rotation_left(t_data *info);
 void    rotation_right(t_data *info);
 int		close_game(t_data *info);
+void	raydirection(t_ray *ray, t_data *info);
 
 #endif

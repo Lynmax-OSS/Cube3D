@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:31:27 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/16 18:40:05 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/20 15:46:20 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	render(t_data *info)
 	get_img_buffer(info->img, info);
 	mlx_put_image_to_window(info->mlx_ptr, info->win, info->img, 0, 0);
 	mlx_destroy_image(info->mlx_ptr, info->img);
-	
 	info->frames++;
 	if (info->acum_time >= 1.0)
 	{
