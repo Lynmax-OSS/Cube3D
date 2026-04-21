@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:32:25 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/20 17:00:10 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/21 21:56:55 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_ray
 	int		stepX;
 	int		stepY;
 	int		side;
+	double	perpWallDist;
 } t_ray;
 
 typedef struct s_data

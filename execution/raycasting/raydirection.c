@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 18:41:00 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/20 17:20:24 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/21 22:13:50 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	put_pixel(int x, int y, int colour, t_data *info)
 {
 	char	*dst;
 
+	// printf("i came in here\n");
 	dst = info->image->data + (y * info->image->line_len + x * (info->image->bpp / 8));
 	*(unsigned int *)dst = colour;
 }
@@ -39,6 +40,7 @@ void	draw_line_stripe(int x, double perpWallDist, t_ray *ray, t_data *info)
 	int	y;
 
 	colour = 0;
+	// printf("what is perpwalldist:%f\n", perpWallDist);
 	lineHeight = (int)(720 / perpWallDist);
 	drawStart = -lineHeight / 2 + 720 / 2;
 	if (drawStart < 0)
@@ -47,6 +49,7 @@ void	draw_line_stripe(int x, double perpWallDist, t_ray *ray, t_data *info)
 	if (drawEnd >= 720)
 		drawEnd = 720 - 1;
 	assign_colour(&colour, ray);
+	// printf("what is colour:%x\n", colour);
 	y = drawStart;
 	while (y <= drawEnd)
 	{
@@ -55,18 +58,17 @@ void	draw_line_stripe(int x, double perpWallDist, t_ray *ray, t_data *info)
 	}
 }
 
-void	Walldist(double *perpWallDist, t_ray *ray)
+void	Walldist(t_ray *ray)
 {
 	if(ray->side == 0) 
-		*perpWallDist = (ray->sideDistX - ray->deltaDistX);
+		ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
 	else
-		*perpWallDist = (ray->sideDistY - ray->deltaDistY);
+		ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
 }
 
-double	run_DDA(int mapX, int mapY, t_ray *ray, t_data *info)
+void	run_DDA(int mapX, int mapY, t_ray *ray, t_data *info)
 {
 	int		hit;
-	double	perpWallDist;
 
 	hit = 0;
 	ray->side = 0;
@@ -86,25 +88,25 @@ double	run_DDA(int mapX, int mapY, t_ray *ray, t_data *info)
 		}
 		if (info->map->map.grid[mapY][mapX] > 0)
 			hit = 1;
+		// printf("what is ray->sideDistX: %f\n", ray->sideDistX);
+		// printf("what is ray->sideDistY: %f\n", ray->sideDistY);
 	}
-	Walldist(&perpWallDist, ray);
-	return (perpWallDist);
+	Walldist(ray);
+	// printf("what did perpwallDist return: %f\n", perpWallDist);
 }
 
-void	init_step_side(double *perpWallDist, t_ray *ray)
+void	init_step_side(t_ray *ray)
 {
 	ray->sideDistX = 0;
 	ray->sideDistY = 0;
 	ray->stepX = 0;
 	ray->stepY = 0;
-	*perpWallDist = 0.0;
+	ray->perpWallDist = 0.0;
 }
 
-double	initial_sidedist(int mapX, int mapY, t_ray *ray, t_data *info)
+void	initial_sidedist(int mapX, int mapY, t_ray *ray, t_data *info)
 {
-	double	perpWallDist;
-
-	init_step_side(&perpWallDist, ray);
+	init_step_side(ray);
 	if (ray->raydirX < 0)
 	{
 		ray->stepX = -1;
@@ -125,22 +127,25 @@ double	initial_sidedist(int mapX, int mapY, t_ray *ray, t_data *info)
 		ray->stepY = 1;
 		ray->sideDistY = (mapY + 1.0 - info->map->player.y) * ray->deltaDistY;
 	}
+	// printf("what is initial sidedistx:%f\n", ray->sideDistX);
+	// printf("what is initial sidedisty:%f\n", ray->sideDistY);
 	run_DDA(mapX, mapY, ray, info);
-	return (perpWallDist);
 }
 
 void	init_deltaDist(t_ray *ray)
 {
 	ray->deltaDistX = 0;
 	ray->deltaDistY = 0;
+	ray->perpWallDist = 0;
 }
 
-double	raydistance(t_ray *ray, t_data *info)
+void	raydistance(t_ray *ray, t_data *info)
 {
 	int		mapX;
 	int		mapY;
-	double	perpWallDist;
 
+	// printf("what is raydirX:%f\n", ray->raydirX);
+	// printf("what is raydirY:%f\n", ray->raydirY);
 	mapX = (int)info->map->player.x;
 	mapY = (int)info->map->player.y;
 	init_deltaDist(ray);
@@ -152,15 +157,13 @@ double	raydistance(t_ray *ray, t_data *info)
 		ray->deltaDistY = 1e30;
 	else
 		ray->deltaDistY = fabs(1 / ray->raydirY);
-	perpWallDist = initial_sidedist(mapX, mapY, ray, info);
-	return (perpWallDist);
+	initial_sidedist(mapX, mapY, ray, info);
 }
 
 void	raydirection(t_ray *ray, t_data *info)
 {
 	int		x;
 	double	cameraX;
-	double	perpWallDist;
 
 	x = 0;
 	cameraX = 0;
@@ -169,10 +172,10 @@ void	raydirection(t_ray *ray, t_data *info)
 		ray->raydirX = 0;
 		ray->raydirY = 0;
 		cameraX = 2 * x / (double)1280 - 1;
-		ray->raydirX = info->map->player.dirX + info->planeX *cameraX;
-		ray->raydirY = info->map->player.dirY + info->planeY *cameraX;
-		perpWallDist = raydistance(ray, info);
-		draw_line_stripe(x, perpWallDist, ray, info);
+		ray->raydirX = info->map->player.dirX + info->planeX * cameraX;
+		ray->raydirY = info->map->player.dirY + info->planeY * cameraX;
+		raydistance(ray, info);
+		draw_line_stripe(x, ray->perpWallDist, ray, info);
 		x++;
 	}
 }

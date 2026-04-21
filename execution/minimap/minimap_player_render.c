@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 22:18:26 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/14 13:14:13 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/21 22:19:35 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	py_bpp_condition(char type, t_data *info)
 	int		i;
 	int		j;
 	char	*p;
-	int     py_TILE;
+	int		py_TILE;
 	int		start_x;
 	int		start_y;
 	int		player_px;
 	int		player_py;
 
-	py_TILE = 10;
+	py_TILE = 5;
 	player_px = (int)(info->map->player.x * info->TILE);
 	player_py = (int)(info->map->player.y * info->TILE);
 	start_x = player_px - (py_TILE / 2);

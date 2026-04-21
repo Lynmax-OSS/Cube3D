@@ -92,7 +92,7 @@ void	set_ray_variables(t_ray *ray)
 
 void	init_info(t_scene *scene, t_data *info)
 {
-	info->TILE = 20;
+	info->TILE = 10;
 	info->map = scene;
 	info->img = NULL;
 	info->oldTime = get_time_in_ms();
@@ -102,8 +102,8 @@ void	init_info(t_scene *scene, t_data *info)
 	info->image->bpp = 0;
 	info->image->endian = 0;
 	info->image->line_len = 0;
-	info->image->img_h = info->map->map.height * info->TILE;
-	info->image->img_w = info->map->map.width * info->TILE;
+	info->image->img_h = 720;
+	info->image->img_w = 1280;
 	info->image->data = NULL;
 	info->mlx_ptr = mlx_init();
 	info->win = mlx_new_window(info->mlx_ptr, 1280, 720, "Cub3d");
@@ -136,6 +136,8 @@ int	main(int argc, char **argv)
 	// print_player(&scene);
 	// print_map(&scene);
 	// printf("\nParsing successful.\n");
+	// printf("image width:%d\n", info->image->img_w);
+	// printf("image heigh:%d\n", info->image->img_h);
 	execute_main(info);
 	return (0);
 }

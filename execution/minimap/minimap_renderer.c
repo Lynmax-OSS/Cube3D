@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 16:09:46 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/20 17:20:10 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/21 22:18:16 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*put_pixel_condition(char type, char *p, t_data *info)
 {
 	unsigned int	raw;
-	int				bytes;	
+	int				bytes;
 
 	raw = 0;
 	bytes = info->image->bpp / 8;
