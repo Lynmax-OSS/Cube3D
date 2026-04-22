@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 16:09:46 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/21 22:18:16 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/22 22:02:27 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	bpp_condition(char type, int x, int y, t_data *info)
 	}
 }
 
-void	img_buffer(t_data *info)
+void	minimap_render(t_data *info)
 {
 	int		x;
 	int		y;
@@ -102,6 +102,6 @@ void	get_img_buffer(void *img, t_data *info)
 	info->image->data = mlx_get_data_addr(img, &info->image->bpp, 
 		&info->image->line_len, &info->image->endian);
 	raydirection(info->ray, info);
-	img_buffer(info);
-	set_py_in_buffer(info);
+	minimap_render(info);
+	set_py_in_minimap(info);
 }

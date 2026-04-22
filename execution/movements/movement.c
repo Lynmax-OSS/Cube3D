@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 16:03:36 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/16 16:45:01 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/22 21:55:20 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ void	compute_buffer(double *buffer, double step)
 		*buffer = 0;
 }
 
-void	strafe_left(char **map, double *x, double *y, t_data *info)
+void	NE_strafe_left(char **map, double *x, double *y, t_data *info)
 {
 	int		new_Y;
 	int		new_X;
 	double	bufferY;
 	double	bufferX;
 
-	compute_buffer(&bufferY, (-info->map->player.dirX * info->movespeed));
-	new_Y = (int)(*y + (-info->map->player.dirX * info->movespeed) + bufferY);
+	compute_buffer(&bufferY, (-info->map->player.dirX) * info->movespeed);
+	new_Y = (int)(*y + (-info->map->player.dirX) * info->movespeed + bufferY);
 	if (new_Y >= 0 && new_Y < info->map->map.height
 		&& (int)*x >= 0 && (int)*x < (int)ft_strlen(map[new_Y])
 		&& map[new_Y][(int)*x] != '1')
@@ -43,7 +43,7 @@ void	strafe_left(char **map, double *x, double *y, t_data *info)
 		*x += info->map->player.dirY * info->movespeed;
 }
 
-void	strafe_right(char **map, double *x, double *y, t_data *info)
+void	NE_strafe_right(char **map, double *x, double *y, t_data *info)
 {
 	int		new_Y;
 	int		new_X;
@@ -56,12 +56,54 @@ void	strafe_right(char **map, double *x, double *y, t_data *info)
 		&& (int)*x >= 0 && (int)*x < (int)ft_strlen(map[new_Y])
 		&& map[new_Y][(int)*x] != '1')
 		*y += info->map->player.dirX * info->movespeed;
-	compute_buffer(&bufferX, (-info->map->player.dirY * info->movespeed));
-	new_X = (int)(*x + (-info->map->player.dirY * info->movespeed) + bufferX);
+	compute_buffer(&bufferX, (-info->map->player.dirY) * info->movespeed);
+	new_X = (int)(*x + (-info->map->player.dirY) * info->movespeed + bufferX);
 	if((int)*y >= 0 && (int)*y < info->map->map.height
 		&& new_X >= 0 && new_X < (int)ft_strlen(map[(int)*y])
 		&& map[(int)*y][new_X] != '1')
-		*x += -info->map->player.dirY * info->movespeed;
+		*x += (-info->map->player.dirY) * info->movespeed;
+}
+
+void	SW_strafe_left(char **map, double *x, double *y, t_data *info)
+{
+	int		new_Y;
+	int		new_X;
+	double	bufferY;
+	double	bufferX;
+
+	compute_buffer(&bufferY, info->map->player.dirX * info->movespeed);
+	new_Y = (int)(*y + info->map->player.dirX * info->movespeed + bufferY);
+	if (new_Y >= 0 && new_Y < info->map->map.height
+		&& (int)*x >= 0 && (int)*x < (int)ft_strlen(map[new_Y])
+		&& map[new_Y][(int)*x] != '1')
+		*y += info->map->player.dirX * info->movespeed;
+	compute_buffer(&bufferX, -info->map->player.dirY * info->movespeed);
+	new_X = (int)(*x + (-info->map->player.dirY) * info->movespeed + bufferX);
+	if ((int)*y >= 0 && (int)*y < info->map->map.height
+		&& new_X >= 0 && new_X < (int)ft_strlen(map[(int)*y])
+		&& map[(int)*y][new_X] != '1')
+		*x += (-info->map->player.dirY) * info->movespeed;
+}
+
+void	SW_strafe_right(char **map, double *x, double *y, t_data *info)
+{
+	int		new_Y;
+	int		new_X;
+	double	bufferY;
+	double	bufferX;
+
+	compute_buffer(&bufferY, (-info->map->player.dirX) * info->movespeed);
+	new_Y = (int)(*y + (-info->map->player.dirX) * info->movespeed + bufferY);
+	if (new_Y >= 0 && new_Y < info->map->map.height
+		&& (int)*x >= 0 && (int)*x < (int)ft_strlen(map[new_Y])
+		&& map[new_Y][(int)*x] != '1')
+		*y += (-info->map->player.dirX) * info->movespeed;
+	compute_buffer(&bufferX, info->map->player.dirY * info->movespeed);
+	new_X = (int)(*x + info->map->player.dirY * info->movespeed + bufferX);
+	if((int)*y >= 0 && (int)*y < info->map->map.height
+		&& new_X >= 0 && new_X < (int)ft_strlen(map[(int)*y])
+		&& map[(int)*y][new_X] != '1')
+		*x += info->map->player.dirY * info->movespeed;
 }
 
 //How does the player move ? Does it move in by changing the signature of the player on the grid map ? 
@@ -91,8 +133,8 @@ void	move_forward(char **map, double *x, double *y, t_data *info)
 
 void	move_backward(char **map, double *x, double *y, t_data *info)
 {
-	int	new_Y;
-	int	new_X;
+	int		new_Y;
+	int		new_X;
 	double	bufferX;
 	double	bufferY;
 
@@ -120,6 +162,42 @@ char    **init_movement(char **map, double *x, double *y, t_data *info)
     return (map);
 }
 
+void	strafe_movement(char **map, double *x, double *y, t_data *info)
+{
+	if(info->key_right == true)
+	{
+		if (info->map->player.dir == 'N' || info->map->player.dir == 'E')
+			NE_strafe_right(map, x, y, info);
+		else
+			SW_strafe_right(map, x, y, info);
+	}
+	if(info->key_left == true)
+	{
+		if (info->map->player.dir == 'N' || info->map->player.dir == 'E')
+			NE_strafe_left(map, x, y, info);
+		else
+			SW_strafe_left(map, x, y, info);
+	}
+}
+
+void	rotation_movement(t_data *info)
+{
+	if(info->key_r_right == true)
+	{
+		if (info->map->player.dir == 'N' || info->map->player.dir == 'E')
+			NE_rotation_right(info);
+		else
+			SW_rotation_right(info);
+	}
+	if(info->key_r_left == true)
+	{
+		if (info->map->player.dir == 'N' || info->map->player.dir == 'E')
+			NE_rotation_left(info);
+		else
+			SW_rotation_left(info);
+	}
+}
+
 int	apply_movement(void *param)
 {
 	t_data	*info;
@@ -134,14 +212,8 @@ int	apply_movement(void *param)
 		move_forward(map, &x, &y, info);
 	if(info->key_bwd == true)
 		move_backward(map, &x, &y, info);
-	if(info->key_right == true)
-		strafe_right(map, &x, &y, info);
-	if(info->key_left == true)
-		strafe_left(map, &x, &y, info);
-	if(info->key_r_right == true)
-		rotation_right(info);
-	if(info->key_r_left == true)
-		rotation_left(info);
+	strafe_movement(map, &x, &y, info);
+	rotation_movement(info);
 	info->map->player.x = x;
 	info->map->player.y = y;
 	return (0);

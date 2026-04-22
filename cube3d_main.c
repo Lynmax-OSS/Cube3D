@@ -74,6 +74,20 @@ void	set_py_direction(t_player *player)
 	}
 }
 
+void	set_plane(t_player *player, t_data *info)
+{
+	if (player->dir == 'N' || player->dir == 'S')
+	{
+		info->planeX = 0.66;
+		info->planeY = 0;
+	}
+	else
+	{
+		info->planeX = 0;
+		info->planeY = 0.66;
+	}
+}
+
 void	set_key_bool(t_data *info)
 {
 	info->key_fwd = false;
@@ -108,11 +122,10 @@ void	init_info(t_scene *scene, t_data *info)
 	info->mlx_ptr = mlx_init();
 	info->win = mlx_new_window(info->mlx_ptr, 1280, 720, "Cub3d");
 	set_py_direction(&(info->map->player));
+	set_plane(&(info->map->player), info);
 	set_key_bool(info);
 	info->acum_time = 0.0;
 	info->frames = 0;
-	info->planeX = 0;
-	info->planeY = 0.66;
 	info->ray = malloc(sizeof(t_ray));
 	set_ray_variables(info->ray);
 }

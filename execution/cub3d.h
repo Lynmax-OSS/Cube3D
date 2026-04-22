@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:32:25 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/21 21:56:55 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/22 22:02:51 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,11 @@ int		released_keys(int keycode, void *param);
 int		apply_movement(void *param);
 int		render(t_data *info);
 char	*put_pixel_condition(char type, char *p, t_data *info);
-void    set_py_in_buffer(t_data *info);
-void    rotation_left(t_data *info);
-void    rotation_right(t_data *info);
+void	set_py_in_minimap(t_data *info);
+void    NE_rotation_left(t_data *info);
+void    NE_rotation_right(t_data *info);
+void    SW_rotation_left(t_data *info);
+void    SW_rotation_right(t_data *info);
 int		close_game(t_data *info);
 void	raydirection(t_ray *ray, t_data *info);
 

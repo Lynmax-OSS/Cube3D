@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 22:18:26 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/21 22:19:35 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/22 22:02:42 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	py_bpp_condition(char type, t_data *info)
 	}
 }
 
-void	set_py_in_buffer(t_data *info)
+void	set_py_in_minimap(t_data *info)
 {
 	char	**map;
 

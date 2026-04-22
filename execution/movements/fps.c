@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:31:27 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/21 22:20:22 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/22 21:58:50 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int	render(t_data *info)
 	info->frames++;
 	if (info->acum_time >= 1.0)
 	{
-		// printf("FPS: %d\n", info->frames);
+		printf("FPS: %d\n", info->frames);
 		info->frames = 0;
 		info->acum_time -= 1.0;
 	}
-	info->movespeed = frameTime * 8.0;
-	info->rotspeed = frameTime * 3.0;
+	info->movespeed = frameTime * 4.0;
+	info->rotspeed = frameTime * 2.0;
 	return (0);
 }

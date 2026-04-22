@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 18:41:00 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/21 22:13:50 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/22 15:16:53 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,10 @@ void	run_DDA(int mapX, int mapY, t_ray *ray, t_data *info)
 			mapY += ray->stepY;
 			ray->side = 1;
 		}
-		if (info->map->map.grid[mapY][mapX] > 0)
+		if (info->map->map.grid[mapY][mapX] == '1')
 			hit = 1;
-		// printf("what is ray->sideDistX: %f\n", ray->sideDistX);
-		// printf("what is ray->sideDistY: %f\n", ray->sideDistY);
 	}
 	Walldist(ray);
-	// printf("what did perpwallDist return: %f\n", perpWallDist);
 }
 
 void	init_step_side(t_ray *ray)
@@ -174,6 +171,8 @@ void	raydirection(t_ray *ray, t_data *info)
 		cameraX = 2 * x / (double)1280 - 1;
 		ray->raydirX = info->map->player.dirX + info->planeX * cameraX;
 		ray->raydirY = info->map->player.dirY + info->planeY * cameraX;
+        // printf("what is raydirX %f\n", ray->raydirX);
+        // printf("what is raydirY %f\n", ray->raydirY);
 		raydistance(ray, info);
 		draw_line_stripe(x, ray->perpWallDist, ray, info);
 		x++;
