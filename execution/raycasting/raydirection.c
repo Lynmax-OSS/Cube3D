@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 18:41:00 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/22 15:16:53 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/24 15:38:32 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	put_pixel(int x, int y, int colour, t_data *info)
 {
 	char	*dst;
 
-	// printf("i came in here\n");
 	dst = info->image->data + (y * info->image->line_len + x * (info->image->bpp / 8));
 	*(unsigned int *)dst = colour;
 }
@@ -40,7 +39,6 @@ void	draw_line_stripe(int x, double perpWallDist, t_ray *ray, t_data *info)
 	int	y;
 
 	colour = 0;
-	// printf("what is perpwalldist:%f\n", perpWallDist);
 	lineHeight = (int)(720 / perpWallDist);
 	drawStart = -lineHeight / 2 + 720 / 2;
 	if (drawStart < 0)
@@ -49,7 +47,6 @@ void	draw_line_stripe(int x, double perpWallDist, t_ray *ray, t_data *info)
 	if (drawEnd >= 720)
 		drawEnd = 720 - 1;
 	assign_colour(&colour, ray);
-	// printf("what is colour:%x\n", colour);
 	y = drawStart;
 	while (y <= drawEnd)
 	{
@@ -157,6 +154,37 @@ void	raydistance(t_ray *ray, t_data *info)
 	initial_sidedist(mapX, mapY, ray, info);
 }
 
+// void	first_node(t_ray *ray, t_data *info)
+// {
+// 	ray->rayline = malloc(sizeof(t_raydir));
+// 	ray->rayline->hitX = info->map->player.x  + ray->raydirX * ray->perpWallDist;
+// 	ray->rayline->hitY = info->map->player.y  + ray->raydirY * ray->perpWallDist;
+// 	ray->rayline->next = NULL;
+// }
+
+// void	append_node(t_ray *ray, t_data *info)
+// {
+// 	t_raydir	*tmp;
+// 	t_raydir	*new;
+
+// 	new = malloc(sizeof(t_raydir));
+// 	new->hitX = info->map->player.x  + ray->raydirX * ray->perpWallDist;
+// 	new->hitY = info->map->player.y  + ray->raydirY * ray->perpWallDist;
+// 	tmp = ray->rayline;
+// 	while (tmp->next)
+// 		tmp = tmp->next;
+// 	tmp->next = new;
+// 	new->next = NULL;
+// }
+
+//  void	register_hits(t_ray *ray, t_data *info)
+//  {
+// 	if (ray->rayline == NULL)
+// 		first_node(ray, info);
+// 	else
+// 		append_node(ray, info);
+//  }
+
 void	raydirection(t_ray *ray, t_data *info)
 {
 	int		x;
@@ -171,10 +199,15 @@ void	raydirection(t_ray *ray, t_data *info)
 		cameraX = 2 * x / (double)1280 - 1;
 		ray->raydirX = info->map->player.dirX + info->planeX * cameraX;
 		ray->raydirY = info->map->player.dirY + info->planeY * cameraX;
-        // printf("what is raydirX %f\n", ray->raydirX);
-        // printf("what is raydirY %f\n", ray->raydirY);
 		raydistance(ray, info);
+		// register_hits(ray, info);
 		draw_line_stripe(x, ray->perpWallDist, ray, info);
 		x++;
 	}
 }
+
+// for (t_raydir *trav = ray->rayline; trav; trav = trav->next)
+// {
+// 	printf("hitY: %f\n", trav->hitY);
+// 	printf("hitX: %f\n", trav->hitX);
+// }

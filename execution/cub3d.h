@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:32:25 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/22 22:02:51 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/25 22:09:43 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,26 @@ typedef struct s_img
 	char	*data;
 } t_img;
 
+// typedef struct s_raydir
+// {
+// 	double			hitX;
+// 	double			hitY;
+// 	struct s_raydir *next;
+// }t_raydir;
+
 typedef struct s_ray
 {
-	double	raydirX;
-	double	raydirY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	sideDistX;
-	double	sideDistY;
-	int		stepX;
-	int		stepY;
-	int		side;
-	double	perpWallDist;
+	double		raydirX;
+	double		raydirY;
+	double		deltaDistX;
+	double		deltaDistY;
+	double		sideDistX;
+	double		sideDistY;
+	int			stepX;
+	int			stepY;
+	int			side;
+	double		perpWallDist;
+	// t_raydir	*rayline;
 } t_ray;
 
 typedef struct s_data
@@ -99,5 +107,7 @@ void    SW_rotation_left(t_data *info);
 void    SW_rotation_right(t_data *info);
 int		close_game(t_data *info);
 void	raydirection(t_ray *ray, t_data *info);
+void	raydistance(t_ray *ray, t_data *info);
+void	put_pixel(int x, int y, int colour, t_data *info);
 
 #endif

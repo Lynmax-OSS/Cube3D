@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 16:53:50 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/21 22:06:54 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/25 22:59:33 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 int	close_game(t_data *info)
 {
+	mlx_destroy_image(info->mlx_ptr, info->img);
 	mlx_destroy_window(info->mlx_ptr, info->win);
 	exit (EXIT_SUCCESS);
 }

@@ -102,6 +102,7 @@ void	set_ray_variables(t_ray *ray)
 {
 	ray->raydirX = 0;
 	ray->raydirY = 0;
+	// ray->rayline = NULL;
 }
 
 void	init_info(t_scene *scene, t_data *info)
@@ -121,6 +122,7 @@ void	init_info(t_scene *scene, t_data *info)
 	info->image->data = NULL;
 	info->mlx_ptr = mlx_init();
 	info->win = mlx_new_window(info->mlx_ptr, 1280, 720, "Cub3d");
+	info->img = mlx_new_image(info->mlx_ptr, 1280, 720);
 	set_py_direction(&(info->map->player));
 	set_plane(&(info->map->player), info);
 	set_key_bool(info);
