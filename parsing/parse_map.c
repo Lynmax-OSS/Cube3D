@@ -12,24 +12,17 @@
 
 #include "parser.h"
 
-typedef struct s_mline
-{
-	char			*line;
-	struct s_mline	*next;
-}	t_mline;
-
-static void	add_line(t_mline **lst, char *line)
+void	add_line(t_mline **lst, char *line)
 {
 	t_mline	*new;
 	t_mline	*tmp;
-	char *trim;
+	char	*trim;
 
 	new = malloc(sizeof(t_mline));
 	if (!new)
 		error_exit("Malloc failed");
 	trim = ft_strtrim(line, "\r");
 	new->line = trim;
-	// ft_printf("%s", new->line);
 	new->next = NULL;
 	if (!*lst)
 	{
@@ -97,16 +90,10 @@ void	parse_map(int fd, char *first, t_scene *scene)
 {
 	t_mline	*lst;
 	t_mline	*tmp;
-	char	*line;
 
 	lst = NULL;
 	add_line(&lst, first);
-	while ((line = get_next_line(fd)))
-	{
-		if (is_empty_line(line))
-			error_exit("Empty line inside map");
-		add_line(&lst, line);
-	}
+	store_map(lst, fd);
 	scene->map.height = list_size(lst);
 	scene->map.width = 0;
 	scene->map.grid = malloc(sizeof(char *) * (scene->map.height + 1));

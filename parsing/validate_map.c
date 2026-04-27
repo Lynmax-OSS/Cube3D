@@ -51,7 +51,6 @@ static char	**copy_map(char **src)
 	return (copy);
 }
 
-
 void	validate_map(t_scene *scene)
 {
 	char	**copy;

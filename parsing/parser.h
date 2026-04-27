@@ -1,24 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: keteo <keteo@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/27 17:04:28 by keteo             #+#    #+#             */
+/*   Updated: 2026/04/27 17:04:28 by keteo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PARSER_H
 # define PARSER_H
-#include "../libft/libft.h"
+# include "../libft/libft.h"
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
 
-typedef	struct	s_texture
+typedef struct s_texture
 {
 	char	*path;
 	int		is_set;
 }	t_texture;
 
-typedef struct	s_color
+typedef struct s_color
 {
 	int	value;
 	int	is_set;
 }	t_color;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	double	x;
 	double	y;
@@ -51,6 +63,11 @@ typedef struct s_scene
 	t_map		map;
 }	t_scene;
 
+typedef struct s_mline
+{
+	char			*line;
+	struct s_mline	*next;
+}	t_mline;
 
 void		parse_file(char *path, t_scene *scene);
 void		parse_color(char *line, t_scene *scene);
@@ -64,5 +81,7 @@ void		free_split(char **s);
 void		validate_scene(t_scene *scene);
 void		validate_map(t_scene *scene);
 void		print_map(t_scene *s);
+void		store_map(t_mline *lst, int fd);
+void		add_line(t_mline **lst, char *line);
 
 #endif

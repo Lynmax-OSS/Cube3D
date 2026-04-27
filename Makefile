@@ -11,7 +11,7 @@ MLX = $(MLX_DIR)libmlx.a
 MLX_LIB = -Lminilibx-linux -lmlx -lXext -lX11 -lm -lz
 
 SRCS= cube3d_main.c parsing/parser.c parsing/validate_map.c \
-	  parsing/parse_elements.c parsing/parse_map.c \
+	  parsing/parse_elements.c parsing/parse_map.c parsing/store_map.c\
 	  parsing/parse_colors.c parsing/parser_utils.c\
 	  parsing/validate_file.c \
 	  execution/execute_main.c execution/minimap/minimap_player_render.c \

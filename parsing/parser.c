@@ -11,14 +11,14 @@
 /* ************************************************************************** */
 #include "parser.h"
 
-static int extension_check(char *map)
+static int	extension_check(char *map)
 {
-	int path_len;
+	int	path_len;
 
 	path_len = ft_strlen(map);
 	if (!ft_strrchr(map, '.'))
 		ft_printf("Error:Invalid file\n");
-	else if (ft_strncmp(map + path_len - 3, "cub", 3) == 0) 
+	else if (ft_strncmp(map + path_len - 3, "cub", 3) == 0)
 		return (1);
 	return (0);
 }
@@ -78,17 +78,17 @@ void	parse_file(char *path, t_scene *scene)
 	while ((line = get_next_line(fd)))
 	{
 		trimmed = ft_strtrim(line, "\r\n \t");
-		// ft_printf("%s\n", trimmed);
 		if (is_empty_line(trimmed))
 		{
-			// ft_printf("is empty\n");
+			free(trimmed);
 			free(line);
 			continue ;
 		}
 		if (is_map_line(trimmed))
 		{
-			// ft_printf("saved map\n");
 			parse_map(fd, line, scene);
+			free(trimmed);
+			free(line);
 			break ;
 		}
 		if (!ft_strncmp(trimmed, "NO", 2)
@@ -99,15 +99,11 @@ void	parse_file(char *path, t_scene *scene)
 		else if (*trimmed == 'F' || *trimmed == 'C')
 			parse_color(trimmed, scene);
 		else
-		{
-			// ft_printf("%s", trimmed);
 			error_exit("Unknown identifier");
-		}
 		free(line);
+		free(trimmed);
 	}
 	close(fd);
 	validate_scene(scene);
 	validate_map(scene);
 }
-
-
