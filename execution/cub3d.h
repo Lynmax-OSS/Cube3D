@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:32:25 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/25 22:09:43 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/28 18:59:09 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,17 @@ typedef struct s_img
 	char	*data;
 } t_img;
 
-// typedef struct s_raydir
-// {
-// 	double			hitX;
-// 	double			hitY;
-// 	struct s_raydir *next;
-// }t_raydir;
+typedef struct	s_text
+{
+	int		bpp;
+	int		line_len;
+	int		endian;
+	char	*data;
+	void	*img;
+	int		img_width;
+	int		img_height;
+	
+} t_text;
 
 typedef struct s_ray
 {
@@ -63,7 +68,6 @@ typedef struct s_ray
 	int			stepY;
 	int			side;
 	double		perpWallDist;
-	// t_raydir	*rayline;
 } t_ray;
 
 typedef struct s_data
@@ -90,6 +94,12 @@ typedef struct s_data
 	double		planeX;
 	double		planeY;
 	t_ray		*ray;
+	t_text		texture[4];
+	t_text		*chosen_text;
+	int			texx;
+	double		step;
+	double		texpos;
+	int			texy;
 } t_data;
 
 void	get_img_buffer(void *img, t_data *info);

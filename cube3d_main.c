@@ -102,7 +102,30 @@ void	set_ray_variables(t_ray *ray)
 {
 	ray->raydirX = 0;
 	ray->raydirY = 0;
-	// ray->rayline = NULL;
+}
+
+void	load_textures(t_text *texture, t_data *info)
+{
+	texture[0].img = mlx_xpm_file_to_image(info->mlx_ptr, 
+			"textures/xpm_converted/gray_stone.xpm", 
+			&texture[0].img_width, &texture[0].img_height);
+	texture[0].data = mlx_get_data_addr(texture[0].img, &texture[0].bpp,
+			&texture[0].line_len, &texture[0].endian);
+	texture[1].img = mlx_xpm_file_to_image(info->mlx_ptr, 
+		"textures/xpm_converted/red_brick.xpm", 
+		&texture[1].img_width, &texture[1].img_height);
+	texture[1].data = mlx_get_data_addr(texture[1].img, &texture[1].bpp,
+			&texture[1].line_len, &texture[1].endian);
+	texture[2].img = mlx_xpm_file_to_image(info->mlx_ptr, 
+		"textures/xpm_converted/white_brick.xpm", 
+		&texture[2].img_width, &texture[2].img_height);
+	texture[2].data = mlx_get_data_addr(texture[2].img, &texture[2].bpp,
+			&texture[2].line_len, &texture[2].endian);
+	texture[3].img = mlx_xpm_file_to_image(info->mlx_ptr, 
+		"textures/xpm_converted/wood.xpm", 
+		&texture[3].img_width, &texture[3].img_height);
+	texture[3].data = mlx_get_data_addr(texture[3].img, &texture[3].bpp,
+			&texture[3].line_len, &texture[3].endian);
 }
 
 void	init_info(t_scene *scene, t_data *info)
@@ -130,6 +153,8 @@ void	init_info(t_scene *scene, t_data *info)
 	info->frames = 0;
 	info->ray = malloc(sizeof(t_ray));
 	set_ray_variables(info->ray);
+	load_textures(info->texture, info);
+	info->chosen_text = NULL;
 }
 
 int	main(int argc, char **argv)

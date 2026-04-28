@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 18:41:00 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/24 15:38:32 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/28 20:02:09 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,34 +22,74 @@ void	put_pixel(int x, int y, int colour, t_data *info)
 	*(unsigned int *)dst = colour;
 }
 
-void	assign_colour(int *colour, t_ray *ray)
+t_text	*pick_texture(t_text *texture, t_ray *ray)
 {
-	if (ray->side == 1)
-		*colour = 0xAACCBB;
+	if (ray->side == 0)
+	{
+		if (ray->raydirX > 0)
+			return (&texture[0]);
+		return (&texture[1]);
+	}
+	if (ray->raydirY > 0)
+		return (&texture[2]);
+	return (&texture[3]);
+}
+
+void	find_text(double pwd, t_ray *ray, t_data *info)
+{
+	double	wallx;
+
+	info->texx = 0;
+	info->chosen_text = pick_texture(info->texture, ray);
+	wallx = 0;
+	if (ray->side == 0)
+		wallx = info->map->player.y + (pwd * ray->raydirY);
 	else
-		*colour = 0xFFBBDD;
+		wallx = info->map->player.x + (pwd * ray->raydirX);
+	wallx -= floor(wallx);
+	info->texx = (int)(wallx * (double)info->chosen_text->img_width);
+	if (ray->side == 0 && ray->raydirX > 0)
+		info->texx = info->chosen_text->img_width - info->texx - 1;
+	if (ray->side == 1 && ray->raydirY < 0)
+		info->texx = info->chosen_text->img_width - info->texx - 1;
+}
+
+void	calculate_step(int drawstart, int lineheight, t_data *info)
+{
+	info->step = 1.0 * info->chosen_text->img_height / lineheight;
+	info->texpos = (drawstart - 720 / 2 + lineheight / 2) * info->step;
+}
+
+void	assign_colour(int *colour, t_text *text, t_data *info)
+{
+	*colour = *(int *)(text->data +
+		(info->texy * text->line_len +
+		info->texx * (text->bpp / 8)));
 }
 
 void	draw_line_stripe(int x, double perpWallDist, t_ray *ray, t_data *info)
 {
-	int	lineHeight;
-	int	drawStart;
-	int	drawEnd;
-	int	colour;
-	int	y;
+	int		lineHeight;
+	int		drawstart;
+	int		drawend;
+	int		y;
+	int		colour;
 
-	colour = 0;
 	lineHeight = (int)(720 / perpWallDist);
-	drawStart = -lineHeight / 2 + 720 / 2;
-	if (drawStart < 0)
-		drawStart = 0;
-	drawEnd = lineHeight / 2 + 720 / 2;
-	if (drawEnd >= 720)
-		drawEnd = 720 - 1;
-	assign_colour(&colour, ray);
-	y = drawStart;
-	while (y <= drawEnd)
+	drawstart = -lineHeight / 2 + 720 / 2;
+	if (drawstart < 0)
+		drawstart = 0;
+	drawend = lineHeight / 2 + 720 / 2;
+	if (drawend >= 720)
+		drawend = 720 - 1;
+	find_text(ray->perpWallDist, ray, info);
+	calculate_step(drawstart, lineHeight, info);
+	y = drawstart;
+	while (y <= drawend)
 	{
+		info->texy = (int)info->texpos & (info->chosen_text->img_height - 1);
+		info->texpos += info->step;
+		assign_colour(&colour, info->chosen_text, info);
 		put_pixel(x, y, colour, info);
 		y++;
 	}
@@ -138,8 +178,6 @@ void	raydistance(t_ray *ray, t_data *info)
 	int		mapX;
 	int		mapY;
 
-	// printf("what is raydirX:%f\n", ray->raydirX);
-	// printf("what is raydirY:%f\n", ray->raydirY);
 	mapX = (int)info->map->player.x;
 	mapY = (int)info->map->player.y;
 	init_deltaDist(ray);
@@ -153,37 +191,6 @@ void	raydistance(t_ray *ray, t_data *info)
 		ray->deltaDistY = fabs(1 / ray->raydirY);
 	initial_sidedist(mapX, mapY, ray, info);
 }
-
-// void	first_node(t_ray *ray, t_data *info)
-// {
-// 	ray->rayline = malloc(sizeof(t_raydir));
-// 	ray->rayline->hitX = info->map->player.x  + ray->raydirX * ray->perpWallDist;
-// 	ray->rayline->hitY = info->map->player.y  + ray->raydirY * ray->perpWallDist;
-// 	ray->rayline->next = NULL;
-// }
-
-// void	append_node(t_ray *ray, t_data *info)
-// {
-// 	t_raydir	*tmp;
-// 	t_raydir	*new;
-
-// 	new = malloc(sizeof(t_raydir));
-// 	new->hitX = info->map->player.x  + ray->raydirX * ray->perpWallDist;
-// 	new->hitY = info->map->player.y  + ray->raydirY * ray->perpWallDist;
-// 	tmp = ray->rayline;
-// 	while (tmp->next)
-// 		tmp = tmp->next;
-// 	tmp->next = new;
-// 	new->next = NULL;
-// }
-
-//  void	register_hits(t_ray *ray, t_data *info)
-//  {
-// 	if (ray->rayline == NULL)
-// 		first_node(ray, info);
-// 	else
-// 		append_node(ray, info);
-//  }
 
 void	raydirection(t_ray *ray, t_data *info)
 {
@@ -200,7 +207,6 @@ void	raydirection(t_ray *ray, t_data *info)
 		ray->raydirX = info->map->player.dirX + info->planeX * cameraX;
 		ray->raydirY = info->map->player.dirY + info->planeY * cameraX;
 		raydistance(ray, info);
-		// register_hits(ray, info);
 		draw_line_stripe(x, ray->perpWallDist, ray, info);
 		x++;
 	}
