@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:32:25 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/28 18:59:09 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/29 01:57:38 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,19 @@ typedef struct	s_text
 	
 } t_text;
 
+typedef struct s_floor
+{
+	float	raydirx0;
+	float	raydiry0;
+	float	raydirx1;
+	float	raydiry1;
+	float	floorx;
+	float	floory;
+	float	rowdistance;
+	float	floorstepx;
+	float	floorstepy;
+} t_floor;
+
 typedef struct s_ray
 {
 	double		raydirX;
@@ -94,12 +107,13 @@ typedef struct s_data
 	double		planeX;
 	double		planeY;
 	t_ray		*ray;
-	t_text		texture[4];
+	t_text		texture[6];
 	t_text		*chosen_text;
 	int			texx;
 	double		step;
 	double		texpos;
 	int			texy;
+	t_floor		*horizon;
 } t_data;
 
 void	get_img_buffer(void *img, t_data *info);
@@ -119,5 +133,6 @@ int		close_game(t_data *info);
 void	raydirection(t_ray *ray, t_data *info);
 void	raydistance(t_ray *ray, t_data *info);
 void	put_pixel(int x, int y, int colour, t_data *info);
+void    floor_cast(t_floor *horizon, t_data *info);
 
 #endif

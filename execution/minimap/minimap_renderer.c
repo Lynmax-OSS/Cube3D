@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 16:09:46 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/28 14:30:33 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/28 23:48:31 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ void	get_img_buffer(void *img, t_data *info)
 {
 	info->image->data = mlx_get_data_addr(img, &info->image->bpp, 
 		&info->image->line_len, &info->image->endian);
+	floor_cast(info->horizon, info);
 	raydirection(info->ray, info);
 	minimap_render(info);
 	draw_ray_in_minimap(info->ray, info);

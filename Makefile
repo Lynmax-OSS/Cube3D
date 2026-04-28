@@ -17,7 +17,8 @@ SRCS= cube3d_main.c parsing/parser.c parsing/validate_map.c \
 	  execution/execute_main.c execution/minimap/minimap_player_render.c \
 	  execution/minimap/minimap_renderer.c \
 	  execution/movements/fps.c execution/movements/movement.c \
-	  execution/movements/rotation.c execution/raycasting/raydirection.c\
+	  execution/movements/rotation.c execution/raycasting/raydirection.c \
+	  execution/floor_ceiling/horizontal_cast.c
 
 OBJ= $(SRCS:.c=.o)
 

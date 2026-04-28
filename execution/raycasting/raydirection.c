@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 18:41:00 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/28 20:02:09 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/28 23:33:38 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,8 +161,6 @@ void	initial_sidedist(int mapX, int mapY, t_ray *ray, t_data *info)
 		ray->stepY = 1;
 		ray->sideDistY = (mapY + 1.0 - info->map->player.y) * ray->deltaDistY;
 	}
-	// printf("what is initial sidedistx:%f\n", ray->sideDistX);
-	// printf("what is initial sidedisty:%f\n", ray->sideDistY);
 	run_DDA(mapX, mapY, ray, info);
 }
 
@@ -211,9 +209,3 @@ void	raydirection(t_ray *ray, t_data *info)
 		x++;
 	}
 }
-
-// for (t_raydir *trav = ray->rayline; trav; trav = trav->next)
-// {
-// 	printf("hitY: %f\n", trav->hitY);
-// 	printf("hitX: %f\n", trav->hitX);
-// }
