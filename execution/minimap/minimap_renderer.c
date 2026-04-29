@@ -6,11 +6,24 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 16:09:46 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/28 23:48:31 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/29 12:45:52 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+char	*minimap_player_condition(char type, char *p, t_data *info)
+{
+	unsigned int	raw;
+
+	raw = 0;
+	if (type == 'P')
+	{
+		raw = (unsigned int)mlx_get_color_value(info->mlx_ptr, 0x00AA3366);
+		*(unsigned int*)p = raw;
+	}
+	return (p);
+}
 
 char	*put_pixel_condition(char type, char *p, t_data *info)
 {
@@ -36,11 +49,7 @@ char	*put_pixel_condition(char type, char *p, t_data *info)
 		raw = (unsigned int)mlx_get_color_value(info->mlx_ptr, 0x00AABBCC);
 		*(unsigned int*)p = raw;
 	}
-	else if (type == 'P')
-	{
-		raw = (unsigned int)mlx_get_color_value(info->mlx_ptr, 0x00AA3366);
-		*(unsigned int*)p = raw;
-	}
+	minimap_player_condition(type, p, info);
 	return (p);
 }
 

@@ -14,42 +14,6 @@
 #include "execution/cub3d.h"
 #include <stdio.h>
 
-// static void	print_textures(t_scene *s)
-// {
-// 	printf("Textures:\n");
-// 	printf("  NO: %s\n", s->no.path);
-// 	printf("  SO: %s\n", s->so.path);
-// 	printf("  WE: %s\n", s->we.path);
-// 	printf("  EA: %s\n", s->ea.path);
-// }
-
-// static void	print_colors(t_scene *s)
-// {
-// 	printf("Colors:\n");
-// 	printf("  Floor:   %#06X\n", s->floor.value);
-// 	printf("  Ceiling: %#06X\n", s->ceiling.value);
-// }
-
-// static void	print_player(t_scene *s)
-// {
-// 	printf("Player:\n");
-// 	printf("  Position: (%.1f, %.1f)\n", s->player.x, s->player.y);
-// 	printf("  Direction: %c\n", s->player.dir);
-// }
-
-// void	print_map(t_scene *s)
-// {
-// 	int	i;
-
-// 	printf("Map (%d x %d):\n", s->map.width, s->map.height);
-// 	i = 0;
-// 	while (s->map.grid[i])
-// 	{
-// 		printf("%s\n", s->map.grid[i]);
-// 		i++;
-// 	}
-// }
-
 void	set_py_direction(t_player *player)
 {
 	if (player->dir == 'N')
@@ -192,13 +156,6 @@ int	main(int argc, char **argv)
 	ft_bzero(&scene, sizeof(t_scene));
 	parse_file(argv[1], &scene);
 	init_info(&scene, info);
-	// print_textures(&scene);
-	// print_colors(&scene);
-	// print_player(&scene);
-	// print_map(&scene);
-	// printf("\nParsing successful.\n");
-	// printf("image width:%d\n", info->image->img_w);
-	// printf("image heigh:%d\n", info->image->img_h);
 	execute_main(info);
 	return (0);
 }
