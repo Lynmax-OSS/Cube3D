@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:32:25 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/29 01:57:38 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/29 22:46:22 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,16 @@ typedef struct s_floor
 
 typedef struct s_ray
 {
-	double		raydirX;
-	double		raydirY;
-	double		deltaDistX;
-	double		deltaDistY;
-	double		sideDistX;
-	double		sideDistY;
-	int			stepX;
-	int			stepY;
+	double		raydirx;
+	double		raydiry;
+	double		deltadistx;
+	double		deltadisty;
+	double		sidedistx;
+	double		sidedisty;
+	int			stepx;
+	int			stepy;
 	int			side;
-	double		perpWallDist;
+	double		perpwalldist;
 } t_ray;
 
 typedef struct s_data
@@ -93,7 +93,7 @@ typedef struct s_data
 	double		rotspeed;
 	t_img		*image;
 	t_scene		*map;
-	int			TILE;
+	int			tile;
 	int			final_x;
 	int			final_y;
 	bool		key_fwd;
@@ -104,8 +104,8 @@ typedef struct s_data
 	bool		key_r_left;
 	int			frames;
 	double		acum_time;
-	double		planeX;
-	double		planeY;
+	double		planex;
+	double		planey;
 	t_ray		*ray;
 	t_text		texture[6];
 	t_text		*chosen_text;
@@ -116,6 +116,12 @@ typedef struct s_data
 	t_floor		*horizon;
 } t_data;
 
+void	init_info(t_scene *scene, t_data *info);
+void	set_ray_variables(t_ray *ray);
+void	set_key_bool(t_data *info);
+void	set_plane(t_player *player, t_data *info);
+void	set_py_direction(t_player *player);
+void	load_textures(t_text *texture, t_data *info);
 void	get_img_buffer(void *img, t_data *info);
 double	get_time_in_ms(void);
 void	execute_main(t_data *info);
@@ -123,8 +129,17 @@ int		pressed_keys(int keycode, void *param);
 int		released_keys(int keycode, void *param);
 int		apply_movement(void *param);
 int		render(t_data *info);
+void	minimap_render(t_data *info);
 char	*put_pixel_condition(char type, char *p, t_data *info);
+void	draw_ray_in_minimap(t_ray *ray, t_data *info);
 void	set_py_in_minimap(t_data *info);
+void	compute_buffer(double *buffer, double step);
+void	move_forward(char **map, double *x, double *y, t_data *info);
+void	move_backward(char **map, double *x, double *y, t_data *info);
+void	NE_strafe_right(char **map, double *x, double *y, t_data *info);
+void	NE_strafe_left(char **map, double *x, double *y, t_data *info);
+void	SW_strafe_right(char **map, double *x, double *y, t_data *info);
+void	SW_strafe_left(char **map, double *x, double *y, t_data *info);
 void    NE_rotation_left(t_data *info);
 void    NE_rotation_right(t_data *info);
 void    SW_rotation_left(t_data *info);
@@ -132,6 +147,11 @@ void    SW_rotation_right(t_data *info);
 int		close_game(t_data *info);
 void	raydirection(t_ray *ray, t_data *info);
 void	raydistance(t_ray *ray, t_data *info);
+void	run_dda(int mapX, int mapY, t_ray *ray, t_data *info);
+void	draw_line_stripe(int x, double perpwalldist, t_ray *ray, t_data *info);
+void	assign_colour(int *colour, t_text *text, t_data *info);
+void	calculate_step(int drawstart, int lineheight, t_data *info);
+void	find_text(double pwd, t_ray *ray, t_data *info);
 void	put_pixel(int x, int y, int colour, t_data *info);
 void    floor_cast(t_floor *horizon, t_data *info);
 
