@@ -6,22 +6,20 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 16:53:50 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/25 22:59:33 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/29 22:05:06 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/*list of components for rendering
--raycasting (raydirection, delta distance, dda algorithm)
--calculate frameTime and convert it into fps, redraw and clear image buffer
--movements using mlx_hook
-*/
-
 int	close_game(t_data *info)
 {
 	mlx_destroy_image(info->mlx_ptr, info->img);
 	mlx_destroy_window(info->mlx_ptr, info->win);
+	free(info->horizon);
+	free(info->image);
+	free(info->ray);
+	free(info);
 	exit (EXIT_SUCCESS);
 }
 

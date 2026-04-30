@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:31:27 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/25 23:17:20 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/29 21:50:35 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,17 @@ double	get_time_in_ms(void)
 
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}
+
+void	get_img_buffer(void *img, t_data *info)
+{
+	info->image->data = mlx_get_data_addr(img, &info->image->bpp, 
+		&info->image->line_len, &info->image->endian);
+	floor_cast(info->horizon, info);
+	raydirection(info->ray, info);
+	minimap_render(info);
+	draw_ray_in_minimap(info->ray, info);
+	set_py_in_minimap(info);
 }
 
 int	render(t_data *info)
