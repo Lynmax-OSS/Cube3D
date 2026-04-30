@@ -6,25 +6,11 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:45:01 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/29 22:49:39 by jhor             ###   ########.fr       */
+/*   Updated: 2026/05/01 00:56:15 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution/cub3d.h"
-
-void	load_fc_textures(t_text *texture, t_data *info)
-{
-	texture[4].img = mlx_xpm_file_to_image(info->mlx_ptr, 
-			"textures/xpm_converted/ceiling.xpm", 
-		&texture[4].img_width, &texture[4].img_height);
-	texture[4].data = mlx_get_data_addr(texture[4].img, &texture[4].bpp,
-		&texture[4].line_len, &texture[4].endian);
-	texture[5].img = mlx_xpm_file_to_image(info->mlx_ptr, 
-			"textures/xpm_converted/floor.xpm", 
-		&texture[5].img_width, &texture[5].img_height);
-	texture[5].data = mlx_get_data_addr(texture[5].img, &texture[5].bpp,
-		&texture[5].line_len, &texture[5].endian);
-}
 
 void	load_textures(t_text *texture, t_data *info)
 {
@@ -48,5 +34,4 @@ void	load_textures(t_text *texture, t_data *info)
 		&texture[3].img_width, &texture[3].img_height);
 	texture[3].data = mlx_get_data_addr(texture[3].img, &texture[3].bpp,
 			&texture[3].line_len, &texture[3].endian);
-	load_fc_textures(texture, info);
 }

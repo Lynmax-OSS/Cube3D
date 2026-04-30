@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 16:09:46 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/29 22:35:16 by jhor             ###   ########.fr       */
+/*   Updated: 2026/04/30 23:50:43 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,16 +89,17 @@ void	minimap_render(t_data *info)
 	while (y < info->map->map.height)
 	{
 		x = 0;
-		while (x < info->map->map.width)
+		while (x < info->map->map.width
+			&& info->map->map.grid[y][x] != '\0')
 		{
-			if (info->map->map.grid[y][x] == '1')
+			if (info->map->map.grid[y][x] == '1')	
 				bpp_condition('1', x, y, info);
 			else if (info->map->map.grid[y][x] == '0')
 				bpp_condition('0', x, y, info);
-			else if (info->map->map.grid[y][x] == 'N'
+			else if ((info->map->map.grid[y][x] == 'N'
 				|| info->map->map.grid[y][x] == 'E'
 				|| info->map->map.grid[y][x] == 'W'
-				|| info->map->map.grid[y][x] == 'S')
+				|| info->map->map.grid[y][x] == 'S'))
 				bpp_condition(info->map->map.grid[y][x], x, y, info);
 			x++;
 		}

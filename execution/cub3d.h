@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:32:25 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/29 22:46:22 by jhor             ###   ########.fr       */
+/*   Updated: 2026/05/01 00:56:41 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ typedef struct s_data
 	double		planex;
 	double		planey;
 	t_ray		*ray;
-	t_text		texture[6];
+	t_text		texture[4];
 	t_text		*chosen_text;
 	int			texx;
 	double		step;
@@ -154,5 +154,7 @@ void	calculate_step(int drawstart, int lineheight, t_data *info);
 void	find_text(double pwd, t_ray *ray, t_data *info);
 void	put_pixel(int x, int y, int colour, t_data *info);
 void    floor_cast(t_floor *horizon, t_data *info);
+void	free_scene(t_data *info);
+void	destroy_textures(t_data *info);
 
 #endif

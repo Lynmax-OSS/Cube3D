@@ -6,23 +6,11 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 16:53:50 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/30 22:23:48 by jhor             ###   ########.fr       */
+/*   Updated: 2026/05/01 00:33:24 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	destroy_textures(t_data *info)
-{
-	int	i;
-
-	i = 0;
-	while (i < 6)
-	{
-		mlx_destroy_image(info->mlx_ptr, info->texture[i].img);
-		i++;
-	}
-}
 
 int	close_game(t_data *info)
 {
@@ -32,6 +20,7 @@ int	close_game(t_data *info)
 	free(info->horizon);
 	free(info->image);
 	free(info->ray);
+	free_scene(info);
 	free(info);
 	exit (EXIT_SUCCESS);
 }

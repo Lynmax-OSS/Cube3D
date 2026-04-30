@@ -25,7 +25,7 @@ SRCS= cube3d_main.c init/init1.c init/init2.c init/load_textures.c \
 	  execution/raycasting/raydirection.c execution/raycasting/raydistance.c \
 	  execution/raycasting/dda.c execution/raycasting/draw_line_stripe.c \
 	  execution/raycasting/pick_texture.c \
-	  execution/floor_ceiling/horizontal_cast.c \
+	  execution/floor_ceiling/horizontal_cast.c execution/free_functions.c\
 
 OBJ= $(SRCS:.c=.o)
 

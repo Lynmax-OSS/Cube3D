@@ -62,9 +62,7 @@ void	add_line(t_mline **lst, char *line)
 	if (!new)
 		error_exit("Malloc failed");
 	trim = ft_strtrim(line, "\r\n");
-	// printf("%s\n", trim);
 	expanded = expand_tabs(trim);
-	printf("%s\n", expanded);
 	free(trim);
 	new->line = expanded;
 	new->next = NULL;

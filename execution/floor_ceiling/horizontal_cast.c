@@ -6,41 +6,41 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/28 23:37:39 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/29 22:37:45 by jhor             ###   ########.fr       */
+/*   Updated: 2026/05/01 01:05:35 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void    fc_put_texture(int x, int y, t_text *text, t_data *info)
-{
-    int cellx;
-    int celly;
-    int tx;
-    int ty;
-    int colour;
+// void    fc_put_colour(int x, int y, t_text *text, t_data *info)
+// {
+//     int cellx;
+//     int celly;
+//     int tx;
+//     int ty;
+//     int colour;
 
-    cellx = (int)info->horizon->floorx;
-    celly = (int)info->horizon->floory;
-    tx = (int)(text->img_width * (info->horizon->floorx - cellx))
-            & (text->img_width - 1);
-    ty = (int)(text->img_height * (info->horizon->floory - celly))
-            & (text->img_height - 1);
-    colour = *(int *)(text->data +
-        (ty * text->line_len + tx * (text->bpp / 8)));
-    put_pixel(x, y, colour, info);
-}
+//     cellx = (int)info->horizon->floorx;
+//     celly = (int)info->horizon->floory;
+//     tx = (int)(text->img_width * (info->horizon->floorx - cellx))
+//             & (text->img_width - 1);
+//     ty = (int)(text->img_height * (info->horizon->floory - celly))
+//             & (text->img_height - 1);
+//     colour = *(int *)(text->data +
+//         (ty * text->line_len + tx * (text->bpp / 8)));
+//     put_pixel(x, y, colour, info);
+// }
 
-void    draw_fc_texture(int y, t_floor *horizon, t_data *info)
+void    draw_fc_colour(int y, t_floor *horizon, t_data *info)
 {
     int     x;
 
     x = 0;
     while (x < info->image->img_w)
     {
-        fc_put_texture(x, y, &info->texture[5], info);        
-        fc_put_texture(x, info->image->img_h - 1 - y,
-            &info->texture[4], info);
+        put_pixel(x, y, info->map->floor.value, info);        
+        put_pixel(x, info->image->img_h - 1 - y,
+            info->map->ceiling.value, info);
         horizon->floorx += horizon->floorstepx;
         horizon->floory += horizon->floorstepy;
         ++x;
@@ -71,7 +71,7 @@ void    floor_cast(t_floor *horizon, t_data *info)
             horizon->raydirx0;
         horizon->floory = info->map->player.y + horizon->rowdistance *
             horizon->raydiry0;
-        draw_fc_texture(y, horizon, info);
+        draw_fc_colour(y, horizon, info);
         y++;
     }
 }
