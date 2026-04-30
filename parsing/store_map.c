@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   store_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keteo <keteo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: keteo <keteo@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 17:35:18 by keteo             #+#    #+#             */
-/*   Updated: 2026/04/27 17:52:11 by keteo            ###   ########.fr       */
+/*   Updated: 2026/04/30 19:11:51 by keteo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	store_map(t_mline *lst, int fd)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		if (is_empty_line(line))
+		if (!line || (line[0] == '\n' || line[0] == '\r' || line[0] == '\0'))
 			error_exit("Empty line inside map");
 		add_line(&lst, line);
 		free(line);

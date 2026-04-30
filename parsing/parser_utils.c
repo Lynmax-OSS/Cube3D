@@ -43,13 +43,11 @@ int	is_map_line(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] == ' ' || line[i] == '\t')
-		i++;
-	if (!ft_strchr("01NSEW", line[i]))
+	if (!ft_strchr("01NSEW \t", line[i]))
 		return (0);
 	while (line[i] && line[i] != '\n' && line[i] != '\r')
 	{
-		if (!ft_strchr("01NSEW ", line[i]))
+		if (!ft_strchr("01NSEW \t", line[i]))
 			return (0);
 		i++;
 	}

@@ -12,17 +12,61 @@
 
 #include "parser.h"
 
+// static char	*expand_tabs(char *line)
+// {
+// 	int		i;
+// 	int		tab_count;
+// 	char	*new;
+// 	char	*dst;
+
+// 	i = 0;
+// 	tab_count = 0;
+// 	while (line[i])
+// 	{
+// 		if (line[i] == '\t')
+// 			tab_count++;
+// 		i++;
+// 	}
+// 	if (tab_count == 0)
+// 		return (ft_strdup(line));
+// 	new = malloc(ft_strlen(line) + (tab_count * 3) + 1);
+// 	if (!new)
+// 		error_exit("Malloc failed");
+// 	i = 0;
+// 	dst = new;
+// 	while (line[i])
+// 	{
+// 		if (line[i] == '\t')
+// 		{
+// 			*dst++ = ' ';
+// 			*dst++ = ' ';
+// 			*dst++ = ' ';
+// 			*dst++ = ' ';
+// 		}
+// 		else
+// 			*dst++ = line[i];
+// 		i++;
+// 	}
+// 	*dst = '\0';
+// 	return (new);
+// }
+
 void	add_line(t_mline **lst, char *line)
 {
 	t_mline	*new;
 	t_mline	*tmp;
 	char	*trim;
+	char	*expanded;
 
 	new = malloc(sizeof(t_mline));
 	if (!new)
 		error_exit("Malloc failed");
-	trim = ft_strtrim(line, "\r");
-	new->line = trim;
+	trim = ft_strtrim(line, "\r\n");
+	// printf("%s\n", trim);
+	expanded = expand_tabs(trim);
+	printf("%s\n", expanded);
+	free(trim);
+	new->line = expanded;
 	new->next = NULL;
 	if (!*lst)
 	{
@@ -62,22 +106,26 @@ static void	copy_map(t_scene *scene, t_mline *lst)
 {
 	int	y;
 	int	x;
+	int	len;
 
 	y = 0;
 	while (lst)
 	{
-		scene->map.grid[y] = ft_strtrim(lst->line, "\r\n\t ");
+		len = ft_strlen(lst->line);
+		scene->map.grid[y] = malloc(len + 1);
 		if (!scene->map.grid[y])
 			error_exit("Malloc failed");
 		x = 0;
-		while (scene->map.grid[y][x])
+		while (x < len)
 		{
+			scene->map.grid[y][x] = lst->line[x];
 			if (ft_strchr("NSEW", scene->map.grid[y][x]))
 				check_player(scene, scene->map.grid[y][x], x, y);
-			else if (!ft_strchr("01 ", scene->map.grid[y][x]))
+			else if (!ft_strchr("01 \t", scene->map.grid[y][x]))
 				error_exit("Invalid map character");
 			x++;
 		}
+		scene->map.grid[y][x] = '\0';
 		if (x > scene->map.width)
 			scene->map.width = x;
 		y++;

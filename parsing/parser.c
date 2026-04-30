@@ -85,7 +85,7 @@ char	*check_line(char *line, t_scene *scene, int fd, int *map_checked)
 {
 	char	*trimmed;
 
-	trimmed = ft_strtrim(line, "\r\n \t");
+	trimmed = ft_strtrim(line, "\r\n");
 	if (is_empty_line(trimmed))
 	{
 		free_line(line, trimmed);

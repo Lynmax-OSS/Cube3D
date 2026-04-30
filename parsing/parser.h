@@ -83,5 +83,6 @@ void		validate_map(t_scene *scene);
 void		print_map(t_scene *s);
 void		store_map(t_mline *lst, int fd);
 void		add_line(t_mline **lst, char *line);
+char		*expand_tabs(char *line);
 
 #endif
