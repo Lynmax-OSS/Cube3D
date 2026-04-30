@@ -74,7 +74,7 @@ static void	copy_map(t_scene *scene, t_mline *lst)
 		{
 			if (ft_strchr("NSEW", scene->map.grid[y][x]))
 				check_player(scene, scene->map.grid[y][x], x, y);
-			else if (!ft_strchr("01", scene->map.grid[y][x]))
+			else if (!ft_strchr("01 ", scene->map.grid[y][x]))
 				error_exit("Invalid map character");
 			x++;
 		}
