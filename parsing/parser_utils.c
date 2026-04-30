@@ -19,43 +19,42 @@ void	error_exit(char *msg)
 	exit(EXIT_FAILURE);
 }
 
-char *skip_spaces(char *s)
+char	*skip_spaces(char *s)
 {
-    while (*s == ' ' || *s == '\t' || *s == '\n')
-        s++;
-    return s;
+	while (*s == ' ' || *s == '\t' || *s == '\n')
+		s++;
+	return (s);
 }
 
-
-int is_empty_line(char *line)
+int	is_empty_line(char *line)
 {
-    int i = 0;
+	int	i;
 
+	i = 0;
 	if (line == NULL)
 		return (1);
-    while (line[i] == ' ' || line[i] == '\t')
-        i++;
-    return (line[i] == '\n' || line[i] == '\0' || line[i] == '\r');
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	return (line[i] == '\n' || line[i] == '\0' || line[i] == '\r');
 }
 
-
-int is_map_line(char *line)
+int	is_map_line(char *line)
 {
-    int i = 0;
+	int	i;
 
-    while (line[i] == ' ' || line[i] == '\t')
-        i++;
-    if (!ft_strchr("01NSEW", line[i]))
-        return (0);
-    while (line[i] && line[i] != '\n' && line[i] != '\r')
-    {
-        if (!ft_strchr("01NSEW ", line[i]))
-            return (0);
-        i++;
-    }
-    return (1);
+	i = 0;
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	if (!ft_strchr("01NSEW", line[i]))
+		return (0);
+	while (line[i] && line[i] != '\n' && line[i] != '\r')
+	{
+		if (!ft_strchr("01NSEW ", line[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }
-
 
 void	free_split(char **s)
 {
