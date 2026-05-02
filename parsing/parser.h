@@ -35,10 +35,10 @@ typedef struct s_player
 	double	x;
 	double	y;
 	char	dir;
-	double	dirX;
-	double	dirY;
-	double	hitX[1280];
-	double	hitY[1280];
+	double	dirx;
+	double	diry;
+	double	hitx[1280];
+	double	hity[1280];
 	int		is_set;
 }	t_player;
 

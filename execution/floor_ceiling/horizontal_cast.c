@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/28 23:37:39 by jhor              #+#    #+#             */
-/*   Updated: 2026/05/01 01:05:35 by jhor             ###   ########.fr       */
+/*   Updated: 2026/05/02 21:48:19 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ void    floor_cast(t_floor *horizon, t_data *info)
     y = 0;
     while (y < info->image->img_h)
     {
-        horizon->raydirx0 = info->map->player.dirX - info->planex;
-        horizon->raydiry0 = info->map->player.dirY - info->planey;
-        horizon->raydirx1 = info->map->player.dirX + info->planex;
-        horizon->raydiry1 = info->map->player.dirY + info->planey;
+        horizon->raydirx0 = info->map->player.dirx - info->planex;
+        horizon->raydiry0 = info->map->player.diry - info->planey;
+        horizon->raydirx1 = info->map->player.dirx + info->planex;
+        horizon->raydiry1 = info->map->player.diry + info->planey;
         p = y - info->image->img_h / 2;
         posz = 0.5 * info->image->img_h;
         horizon->rowdistance = posz / p;

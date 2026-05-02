@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 21:41:29 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/29 22:37:45 by jhor             ###   ########.fr       */
+/*   Updated: 2026/05/02 21:48:19 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void	draw_ray_in_minimap(t_ray *ray, t_data *info)
 		ray->raydirx = 0;
 		ray->raydiry = 0;
 		cameraX = 2 * x / (double)1280 - 1;
-		ray->raydirx = info->map->player.dirX + info->planex * cameraX;
-		ray->raydiry = info->map->player.dirY + info->planey * cameraX;
+		ray->raydirx = info->map->player.dirx + info->planex * cameraX;
+		ray->raydiry = info->map->player.diry + info->planey * cameraX;
 		raydistance(ray, info);
 		draw_rayline(ray, info);
 		i++;

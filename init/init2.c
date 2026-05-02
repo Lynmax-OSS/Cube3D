@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:43:02 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/29 22:49:33 by jhor             ###   ########.fr       */
+/*   Updated: 2026/05/02 21:46:21 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,23 @@ void	set_py_direction(t_player *player)
 {
 	if (player->dir == 'N')
 	{
-		player->dirY = -1;
-		player->dirX = 0;
+		player->diry = -1;
+		player->dirx = 0;
 	}
 	else if (player->dir == 'S')
 	{
-		player->dirY = 1;
-		player->dirX = 0;
+		player->diry = 1;
+		player->dirx = 0;
 	}
 	else if (player->dir == 'E')
 	{
-		player->dirY = 0;
-		player->dirX = 1;
+		player->diry = 0;
+		player->dirx = 1;
 	}
 	else if (player->dir == 'W')
 	{
-		player->dirY = 0;
-		player->dirX = -1;
+		player->diry = 0;
+		player->dirx = -1;
 	}
 }
 
