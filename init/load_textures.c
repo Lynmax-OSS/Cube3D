@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:45:01 by jhor              #+#    #+#             */
-/*   Updated: 2026/05/04 16:23:09 by jhor             ###   ########.fr       */
+/*   Updated: 2026/05/04 18:21:52 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	load_textures(t_text *texture, t_data *info)
 	texture[1].data = mlx_get_data_addr(texture[1].img, &texture[1].bpp,
 			&texture[1].line_len, &texture[1].endian);
 	texture[2].img = mlx_xpm_file_to_image(info->mlx_ptr,
-			info->map->no.path, &texture[2].img_width, &texture[2].img_height);
+			info->map->so.path, &texture[2].img_width, &texture[2].img_height);
 	texture[2].data = mlx_get_data_addr(texture[2].img, &texture[2].bpp,
 			&texture[2].line_len, &texture[2].endian);
 	texture[3].img = mlx_xpm_file_to_image(info->mlx_ptr,
-			info->map->so.path, &texture[3].img_width, &texture[3].img_height);
+			info->map->no.path, &texture[3].img_width, &texture[3].img_height);
 	texture[3].data = mlx_get_data_addr(texture[3].img, &texture[3].bpp,
 			&texture[3].line_len, &texture[3].endian);
 }
