@@ -19,8 +19,8 @@ void	validate_scene(t_scene *scene)
 		error_exit("Missing texture");
 	if (!scene->floor.is_set || !scene->ceiling.is_set)
 		error_exit("Missing color");
-	if (!scene->player.is_set)
-		error_exit("Missing player");
 	if (!scene->map.grid || scene->map.height == 0)
 		error_exit("Missing map");
+	if (!scene->player.is_set)
+		error_exit("Missing player");
 }
