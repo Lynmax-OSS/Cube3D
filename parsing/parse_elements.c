@@ -29,11 +29,15 @@ void	parse_texture(char *line, t_scene *scene)
 {
 	t_texture	*tex;
 	char		*path;
+	int			fd;
 
 	tex = select_texture(line, scene);
 	if (!tex || tex->is_set)
 		error_exit("Duplicate or invalid texture");
 	path = skip_spaces(line + 2);
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		error_exit("Texture file does not exist");
 	if (!*path)
 		error_exit("Missing texture path");
 	tex->path = ft_strdup(path);
