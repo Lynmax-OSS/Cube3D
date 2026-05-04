@@ -90,7 +90,7 @@ static int	list_size(t_mline *lst)
 	return (i);
 }
 
-static void	check_player(t_scene *scene, char c, int x, int y)
+void	check_player(t_scene *scene, char c, int x, int y)
 {
 	if (scene->player.is_set)
 		error_exit("Multiple players");
@@ -117,10 +117,7 @@ static void	copy_map(t_scene *scene, t_mline *lst)
 		while (x < len)
 		{
 			scene->map.grid[y][x] = lst->line[x];
-			if (ft_strchr("NSEW", scene->map.grid[y][x]))
-				check_player(scene, scene->map.grid[y][x], x, y);
-			else if (!ft_strchr("01 \t", scene->map.grid[y][x]))
-				error_exit("Invalid map character");
+			check_element(scene, y, x);
 			x++;
 		}
 		scene->map.grid[y][x] = '\0';

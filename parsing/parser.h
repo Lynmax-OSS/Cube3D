@@ -80,9 +80,10 @@ int			is_map_line(char *line);
 void		free_split(char **s);
 void		validate_scene(t_scene *scene);
 void		validate_map(t_scene *scene);
-void		print_map(t_scene *s);
 void		store_map(t_mline *lst, int fd);
 void		add_line(t_mline **lst, char *line);
 char		*expand_tabs(char *line);
+void		check_element(t_scene *scene, int y, int x);
+void		check_player(t_scene *scene, char c, int x, int y);
 
 #endif
