@@ -12,7 +12,7 @@
 
 #include "parser.h"
 
-int count_tab(char *line)
+int	count_tab(char *line)
 {
 	int	i;
 	int	count;
