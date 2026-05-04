@@ -12,9 +12,11 @@
 
 long	ft_atol(const char *str)
 {
-	long	result = 0;
-	int		sign = 1;
+	long	result;
+	int		sign;
 
+	result = 0;
+	sign = 1;
 	while ((*str >= 9 && *str <= 13) || *str == ' ')
 		str++;
 	if (*str == '-' || *str == '+')

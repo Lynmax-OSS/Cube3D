@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 16:53:50 by jhor              #+#    #+#             */
-/*   Updated: 2026/05/01 00:33:24 by jhor             ###   ########.fr       */
+/*   Updated: 2026/05/04 15:51:54 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int	game_loop(void *param)
 
 void	execute_main(t_data *info)
 {
-	mlx_hook(info->win, DestroyNotify, SubstructureNotifyMask, close_game, info);
+	mlx_hook(info->win, DestroyNotify, SubstructureNotifyMask,
+		close_game, info);
 	mlx_hook(info->win, KeyPress, KeyPressMask, pressed_keys, info);
 	mlx_hook(info->win, KeyRelease, KeyReleaseMask, released_keys, info);
 	mlx_loop_hook(info->mlx_ptr, game_loop, info);
