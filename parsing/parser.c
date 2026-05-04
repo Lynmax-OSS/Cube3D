@@ -18,51 +18,10 @@ static int	extension_check(char *map)
 	path_len = ft_strlen(map);
 	if (!ft_strrchr(map, '.'))
 		ft_printf("Error:Invalid file\n");
-	else if (ft_strncmp(map + path_len - 3, "cub", 3) == 0)
+	else if (ft_strncmp(map + path_len - 4, ".cub", 4) == 0)
 		return (1);
 	return (0);
 }
-
-// void	parse_file(char *path, t_scene *scene)
-// {
-// 	int		fd;
-// 	char	*line;
-
-// 	if (!extension_check(path))
-// 		error_exit("Invalid file extension");
-
-// 	fd = open(path, O_RDONLY);
-// 	if (fd < 0)
-// 		error_exit("Cannot open file");
-
-// 	while ((line = get_next_line(fd)))
-// 	{
-// 		if (is_empty_line(line))
-// 		{
-// 			free(line);
-// 			continue ;
-// 		}
-// 		if (is_map_line(line))
-// 		{
-// 			parse_map(fd, line, scene);
-// 			print_map(scene);
-// 			break ;
-// 		}
-// 		line = skip_spaces(line);
-// 		printf("%s", line);
-// 		if (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2)
-// 			|| !ft_strncmp(line, "WE", 2) || !ft_strncmp(line, "EA", 2))
-// 			parse_texture(line, scene);
-// 		else if (*line == 'F' || *line == 'C')
-// 			parse_color(line, scene);
-// 		else if (is_map_line(line))
-// 			error_exit("Unknown identifier");
-// 		free(line);
-// 	}
-// 	close(fd);
-// 	validate_scene(scene);
-// 	validate_map(scene);
-// }
 
 static void	free_line(char *line, char *trimmed)
 {
