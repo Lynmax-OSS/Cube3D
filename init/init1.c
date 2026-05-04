@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:42:10 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/29 22:49:22 by jhor             ###   ########.fr       */
+/*   Updated: 2026/05/04 15:52:48 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	init_info(t_scene *scene, t_data *info)
 	info->tile = 10;
 	info->map = scene;
 	info->img = NULL;
-	info->oldTime = get_time_in_ms();
+	info->oldtime = get_time_in_ms();
 	info->movespeed = 0;
 	info->rotspeed = 0;
 	info->image = malloc(sizeof(t_img));

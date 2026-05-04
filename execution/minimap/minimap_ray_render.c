@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 21:41:29 by jhor              #+#    #+#             */
-/*   Updated: 2026/05/02 21:48:19 by jhor             ###   ########.fr       */
+/*   Updated: 2026/05/04 15:55:25 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	apply_draw(double x, double y, int tile, t_data *info)
 
 	px = (int)(x * tile);
 	py = (int)(y * tile);
-	if (px < 0 || px >= info->image->img_w ||
-		py < 0 || py >= info->image->img_h)
+	if (px < 0 || px >= info->image->img_w
+		|| py < 0 || py >= info->image->img_h)
 		return ;
 	put_pixel(px, py, 0xAA3366, info);
 }
 
-void	compute_distance(double hitX, double hitY, double i, t_data *info)
+void	compute_distance(double hitx, double hity, double i, t_data *info)
 {
 	double	steps;
 	double	x;
@@ -33,8 +33,8 @@ void	compute_distance(double hitX, double hitY, double i, t_data *info)
 	double	dx;
 	double	dy;
 
-	dx = hitX - info->map->player.x;
-	dy = hitY - info->map->player.y;
+	dx = hitx - info->map->player.x;
+	dy = hity - info->map->player.y;
 	if (dx == 0 && dy == 0)
 		return ;
 	steps = fmax(fabs(dx), fabs(dy)) * 10;
@@ -49,14 +49,14 @@ void	compute_distance(double hitX, double hitY, double i, t_data *info)
 
 void	draw_rayline(t_ray *ray, t_data *info)
 {
-	double	hitX;
-	double	hitY;
-    double  i;
+	double	hitx;
+	double	hity;
+	double	i;
 
-    i = 0;
-	hitX = info->map->player.x + (ray->raydirx * ray->perpwalldist);
-	hitY = info->map->player.y + (ray->raydiry * ray->perpwalldist);
-	compute_distance(hitX, hitY, i, info);
+	i = 0;
+	hitx = info->map->player.x + (ray->raydirx * ray->perpwalldist);
+	hity = info->map->player.y + (ray->raydiry * ray->perpwalldist);
+	compute_distance(hitx, hity, i, info);
 }
 
 void	draw_ray_in_minimap(t_ray *ray, t_data *info)
@@ -64,19 +64,19 @@ void	draw_ray_in_minimap(t_ray *ray, t_data *info)
 	double	step;
 	int		i;
 	int		x;
-	double	cameraX;
+	double	camerax;
 
 	step = (double)1280 / (double)60;
 	i = 0;
-	cameraX = 0;
+	camerax = 0;
 	while (i < 60)
 	{
 		x = (int)(i * step);
 		ray->raydirx = 0;
 		ray->raydiry = 0;
-		cameraX = 2 * x / (double)1280 - 1;
-		ray->raydirx = info->map->player.dirx + info->planex * cameraX;
-		ray->raydiry = info->map->player.diry + info->planey * cameraX;
+		camerax = 2 * x / (double)1280 - 1;
+		ray->raydirx = info->map->player.dirx + info->planex * camerax;
+		ray->raydiry = info->map->player.diry + info->planey * camerax;
 		raydistance(ray, info);
 		draw_rayline(ray, info);
 		i++;

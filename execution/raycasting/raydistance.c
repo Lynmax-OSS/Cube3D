@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 22:06:26 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/29 22:34:58 by jhor             ###   ########.fr       */
+/*   Updated: 2026/05/04 16:22:19 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,33 +21,33 @@ void	init_step_side(t_ray *ray)
 	ray->perpwalldist = 0.0;
 }
 
-void	initial_sidedist(int mapX, int mapY, t_ray *ray, t_data *info)
+void	initial_sidedist(int mapx, int mapy, t_ray *ray, t_data *info)
 {
 	init_step_side(ray);
 	if (ray->raydirx < 0)
 	{
 		ray->stepx = -1;
-		ray->sidedistx = (info->map->player.x - mapX) * ray->deltadistx;
+		ray->sidedistx = (info->map->player.x - mapx) * ray->deltadistx;
 	}
 	else
 	{
 		ray->stepx = 1;
-		ray->sidedistx = (mapX + 1.0 - info->map->player.x) * ray->deltadistx;
+		ray->sidedistx = (mapx + 1.0 - info->map->player.x) * ray->deltadistx;
 	}
 	if (ray->raydiry < 0)
 	{
 		ray->stepy = -1;
-		ray->sidedisty = (info->map->player.y - mapY) * ray->deltadisty;
+		ray->sidedisty = (info->map->player.y - mapy) * ray->deltadisty;
 	}
 	else
 	{
 		ray->stepy = 1;
-		ray->sidedisty = (mapY + 1.0 - info->map->player.y) * ray->deltadisty;
+		ray->sidedisty = (mapy + 1.0 - info->map->player.y) * ray->deltadisty;
 	}
-	run_dda(mapX, mapY, ray, info);
+	run_dda(mapx, mapy, ray, info);
 }
 
-void	init_deltaDist(t_ray *ray)
+void	init_deltadist(t_ray *ray)
 {
 	ray->deltadistx = 0;
 	ray->deltadisty = 0;
@@ -56,12 +56,12 @@ void	init_deltaDist(t_ray *ray)
 
 void	raydistance(t_ray *ray, t_data *info)
 {
-	int		mapX;
-	int		mapY;
+	int		mapx;
+	int		mapy;
 
-	mapX = (int)info->map->player.x;
-	mapY = (int)info->map->player.y;
-	init_deltaDist(ray);
+	mapx = (int)info->map->player.x;
+	mapy = (int)info->map->player.y;
+	init_deltadist(ray);
 	if (ray->raydirx == 0)
 		ray->deltadistx = 1e30;
 	else
@@ -70,5 +70,5 @@ void	raydistance(t_ray *ray, t_data *info)
 		ray->deltadisty = 1e30;
 	else
 		ray->deltadisty = fabs(1 / ray->raydiry);
-	initial_sidedist(mapX, mapY, ray, info);
+	initial_sidedist(mapx, mapy, ray, info);
 }

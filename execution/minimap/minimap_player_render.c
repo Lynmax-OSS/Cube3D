@@ -6,7 +6,7 @@
 /*   By: jhor <jhor@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 22:18:26 by jhor              #+#    #+#             */
-/*   Updated: 2026/04/29 22:35:16 by jhor             ###   ########.fr       */
+/*   Updated: 2026/05/04 15:54:02 by jhor             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	py_bpp_condition(char type, int player_px, int player_py, t_data *info)
 		i = 0;
 		while (i < (info->tile / 2))
 		{
-				info->final_x = start_x + i;
-				info->final_y = start_y + j;
-				if (info->final_x < 0 || info->final_x >= info->image->img_w ||
-					info->final_y < 0 || info->final_y >= info->image->img_h)
-				   return ;
-				p = put_pixel_condition(type, p, info);
+			info->final_x = start_x + i;
+			info->final_y = start_y + j;
+			if (info->final_x < 0 || info->final_x >= info->image->img_w
+				|| info->final_y < 0 || info->final_y >= info->image->img_h)
+				return ;
+			p = put_pixel_condition(type, p, info);
 			i++;
 		}
 		j++;
