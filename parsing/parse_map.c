@@ -12,53 +12,14 @@
 
 #include "parser.h"
 
-// static char	*expand_tabs(char *line)
-// {
-// 	int		i;
-// 	int		tab_count;
-// 	char	*new;
-// 	char	*dst;
-
-// 	i = 0;
-// 	tab_count = 0;
-// 	while (line[i])
-// 	{
-// 		if (line[i] == '\t')
-// 			tab_count++;
-// 		i++;
-// 	}
-// 	if (tab_count == 0)
-// 		return (ft_strdup(line));
-// 	new = malloc(ft_strlen(line) + (tab_count * 3) + 1);
-// 	if (!new)
-// 		error_exit("Malloc failed");
-// 	i = 0;
-// 	dst = new;
-// 	while (line[i])
-// 	{
-// 		if (line[i] == '\t')
-// 		{
-// 			*dst++ = ' ';
-// 			*dst++ = ' ';
-// 			*dst++ = ' ';
-// 			*dst++ = ' ';
-// 		}
-// 		else
-// 			*dst++ = line[i];
-// 		i++;
-// 	}
-// 	*dst = '\0';
-// 	return (new);
-// }
-
-void	add_line(t_mline **lst, char *line)
+void	add_line(t_map_buffer **lst, char *line)
 {
-	t_mline	*new;
-	t_mline	*tmp;
-	char	*trim;
-	char	*expanded;
+	t_map_buffer	*new;
+	t_map_buffer	*tmp;
+	char			*trim;
+	char			*expanded;
 
-	new = malloc(sizeof(t_mline));
+	new = malloc(sizeof(t_map_buffer));
 	if (!new)
 		error_exit("Malloc failed");
 	trim = ft_strtrim(line, "\r\n");
@@ -77,7 +38,7 @@ void	add_line(t_mline **lst, char *line)
 	tmp->next = new;
 }
 
-static int	list_size(t_mline *lst)
+static int	list_size(t_map_buffer *lst)
 {
 	int	i;
 
@@ -100,7 +61,7 @@ void	check_player(t_scene *scene, char c, int x, int y)
 	scene->player.is_set = 1;
 }
 
-static void	copy_map(t_scene *scene, t_mline *lst)
+static void	copy_map(t_scene *scene, t_map_buffer *lst)
 {
 	int	y;
 	int	x;
@@ -131,8 +92,8 @@ static void	copy_map(t_scene *scene, t_mline *lst)
 
 void	parse_map(int fd, char *first, t_scene *scene)
 {
-	t_mline	*lst;
-	t_mline	*tmp;
+	t_map_buffer	*lst;
+	t_map_buffer	*tmp;
 
 	lst = NULL;
 	add_line(&lst, first);

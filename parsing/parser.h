@@ -63,11 +63,11 @@ typedef struct s_scene
 	t_map		map;
 }	t_scene;
 
-typedef struct s_mline
+typedef struct s_map_buffer
 {
-	char			*line;
-	struct s_mline	*next;
-}	t_mline;
+	char				*line;
+	struct s_map_buffer	*next;
+}	t_map_buffer;
 
 void		parse_file(char *path, t_scene *scene);
 void		parse_color(char *line, t_scene *scene);
@@ -80,8 +80,8 @@ int			is_map_line(char *line);
 void		free_split(char **s);
 void		validate_scene(t_scene *scene);
 void		validate_map(t_scene *scene);
-void		store_buffer(t_mline *lst, int fd);
-void		add_line(t_mline **lst, char *line);
+void		store_buffer(t_map_buffer *lst, int fd);
+void		add_line(t_map_buffer **lst, char *line);
 char		*expand_tabs(char *line);
 void		check_element(t_scene *scene, int y, int x);
 void		check_player(t_scene *scene, char c, int x, int y);
