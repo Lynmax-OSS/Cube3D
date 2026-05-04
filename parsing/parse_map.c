@@ -136,7 +136,7 @@ void	parse_map(int fd, char *first, t_scene *scene)
 
 	lst = NULL;
 	add_line(&lst, first);
-	store_map(lst, fd);
+	store_buffer(lst, fd);
 	scene->map.height = list_size(lst);
 	scene->map.width = 0;
 	scene->map.grid = malloc(sizeof(char *) * (scene->map.height + 1));
