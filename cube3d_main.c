@@ -24,9 +24,9 @@ int	main(int argc, char **argv)
 		printf("Usage: %s <map.cub>\n", argv[0]);
 		return (1);
 	}
-	info = malloc(sizeof(t_data));
 	ft_bzero(&scene, sizeof(t_scene));
 	parse_file(argv[1], &scene);
+	info = malloc(sizeof(t_data));
 	init_info(&scene, info);
 	execute_main(info);
 	return (0);

@@ -21,8 +21,6 @@ static void	flood(char **m, int x, int y, t_map *map)
 		error_exit("Map not closed");
 	if (m[y][x] == '1' || m[y][x] == 'V')
 		return ;
-	if (m[y][x] == ' ' || m[y][x] == '\t')
-		return ;
 	m[y][x] = 'V';
 	flood(m, x + 1, y, map);
 	flood(m, x - 1, y, map);
